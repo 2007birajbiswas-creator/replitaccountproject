@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import type { CSSProperties } from 'react';
 import {
   CircleMarker,
@@ -43,9 +43,14 @@ const routeCoordinates: LatLngExpression[] = [
 
 function MapFocus({ selected }: { selected: JourneyPlace | null }) {
   const map = useMap();
+  const hasMounted = useRef(false);
 
   useEffect(() => {
     if (!selected) return;
+    if (!hasMounted.current) {
+      hasMounted.current = true;
+      return;
+    }
     map.flyTo(selected.coordinates, Math.max(map.getZoom(), 5.7), {
       animate: true,
       duration: 0.8,
