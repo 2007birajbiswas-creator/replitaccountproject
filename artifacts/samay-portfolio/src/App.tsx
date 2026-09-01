@@ -36,6 +36,22 @@ function useReveals() {
   }, []);
 }
 
+function useJourneyProgress() {
+  useEffect(() => {
+    const section = document.getElementById('journey');
+    if (!section || !('IntersectionObserver' in window)) {
+      section?.classList.add('is-active');
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => section.classList.toggle('is-active', entry.isIntersecting),
+      { threshold: 0.14 },
+    );
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+}
+
 const navItems = [
   { label: 'WORK', target: 'work' },
   { label: 'ZARVORA', target: 'zarvora' },
@@ -58,6 +74,103 @@ const zarvoraCollections = [
   ['IMPERIAL HEIRLOOM COLLECTION', 'Lehengas'],
   ['ETERNAL RADIANCE COLLECTION', 'Fashion Jewellery'],
   ['SACRED GRACE COLLECTION', 'Mangalsutras'],
+];
+
+const capabilities = [
+  ['01', 'COMMERCE', 'OPERATOR', 'Building businesses with attention to product, customers, systems and execution.'],
+  ['02', 'BRAND SYSTEMS', 'BUILDER', 'Turning an idea into a coherent identity, experience and commercial system.'],
+  ['03', 'CREATIVE DIRECTION', 'DIRECTOR', 'Shaping visual language, presentation, detail and overall taste.'],
+  ['04', 'TECHNOLOGY', 'TECHNOLOGIST', 'Using technology to build useful systems, digital experiences and scalable foundations.'],
+  ['05', 'COMMUNICATION', 'COMMUNICATOR', 'Public speaking, presenting ideas and making complex thoughts understandable.'],
+  ['06', 'OBSERVATION', 'OBSERVER', 'A strong eye for human behaviour, social dynamics, patterns and the details people often overlook.'],
+];
+
+const journeyMilestones = [
+  {
+    number: '01',
+    period: 'Childhood',
+    title: 'Learning independence',
+    copy: (
+      <>
+        <p>I spent much of my childhood in hostel.</p>
+        <p>Those years changed the way I looked at the world. Being independent at a young age taught me survival, respect, social awareness, self-dependence and how to navigate different kinds of people and situations.</p>
+      </>
+    ),
+  },
+  {
+    number: '02',
+    period: 'Early interest',
+    title: 'Before the brands',
+    copy: (
+      <>
+        <p>I was interested in business and technology from an early age.</p>
+        <p>I always found myself curious about how things work, why people make certain decisions, and how an idea can become something real.</p>
+      </>
+    ),
+  },
+  {
+    number: '03',
+    period: 'Kolkata',
+    title: 'Full-stack developer / designer',
+    copy: (
+      <>
+        <p>After school and my education, the expectation around me was familiar: continue into the family hotel business and my father’s government contracting work.</p>
+        <p>I chose differently.</p>
+        <p>I wanted to become self-dependent and build something I could genuinely call my own.</p>
+        <p>I found an opportunity in Kolkata and spent more than a year working as a full-stack developer and designer.</p>
+      </>
+    ),
+  },
+  {
+    number: '04',
+    period: '2024–2025',
+    title: 'ZAYANA / First brand',
+    copy: (
+      <>
+        <p>During that period, I launched my first brand — ZAYANA.</p>
+        <p>A premium, royal, female-focused concept designed to test whether my ideas around branding, commerce and customer experience could work in the real world.</p>
+        <p className="journey-revenue">more than ₹1.38 crore <span>in one year</span></p>
+        <p>It taught me far more than revenue ever could — branding, customers, operations, decision-making, systems, resilience and what happens when an idea meets reality.</p>
+      </>
+    ),
+  },
+  {
+    number: '05',
+    period: '2025',
+    title: 'Exit / Reset',
+    copy: (
+      <>
+        <p>ZAYANA eventually moved on to a Gujarat-based brand.</p>
+        <p>I took a few months to step back, examine what worked, what did not, and what I wanted to build next.</p>
+        <p>That pause gave me clarity.</p>
+      </>
+    ),
+  },
+  {
+    number: '06',
+    period: 'A decision',
+    title: 'The decision',
+    copy: (
+      <>
+        <p>I eventually resigned from my job and chose to focus completely on the project I had been carrying in my head for much longer.</p>
+        <p>Not because the path was guaranteed.</p>
+        <p>Because it was mine.</p>
+      </>
+    ),
+  },
+  {
+    number: '07',
+    period: '2026 — onward',
+    title: 'ZARVORA',
+    copy: (
+      <>
+        <p>ZARVORA is the long-term project.</p>
+        <p>A premium fashion and commerce house built around Indian heritage, contemporary design, thoughtful presentation and a much longer view.</p>
+        <p>The goal is not simply to sell products.</p>
+        <p>The goal is to build a house brand people recognize for how it makes them feel.</p>
+      </>
+    ),
+  },
 ];
 
 function Header({ menuOpen, onToggle }: { menuOpen: boolean; onToggle: () => void }) {
@@ -146,6 +259,7 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const age = getAge();
   useReveals();
+  useJourneyProgress();
 
   useEffect(() => {
     document.title = 'Samay Mishra — Independent Founder';
@@ -173,6 +287,15 @@ function App() {
       }
       tag.setAttribute('content', content);
     });
+  }, []);
+
+  useEffect(() => {
+    const target = window.location.hash.slice(1);
+    if (!target) return;
+    const timer = window.setTimeout(() => {
+      document.getElementById(target)?.scrollIntoView({ behavior: 'smooth' });
+    }, 80);
+    return () => window.clearTimeout(timer);
   }, []);
 
   useEffect(() => {
@@ -398,50 +521,56 @@ function App() {
         </div>
       </section>
 
-      <section id="practice" className="mx-auto max-w-[1500px] px-5 py-24 sm:px-8 lg:px-12 lg:py-40" aria-labelledby="practice-heading">
-        <div className="reveal mb-16 grid gap-7 lg:grid-cols-[.8fr_1.2fr] lg:gap-20">
-          <p className="mono-label text-[hsl(var(--primary))]">03 / The practice</p>
-          <h2 id="practice-heading" className="max-w-[920px] text-[clamp(3rem,7vw,7.5rem)] leading-[.84] tracking-[-.08em]">Taste is not<br /><span className="display-serif font-normal italic text-[hsl(var(--primary))]">decoration.</span></h2>
+      <section id="practice" className="practice-section mx-auto max-w-[1500px] px-5 py-24 sm:px-8 lg:px-12 lg:py-40" aria-labelledby="practice-heading">
+        <div className="reveal mb-16 grid gap-8 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">
+          <div>
+            <p className="mono-label text-[hsl(var(--primary))]">03 / The practice</p>
+            <p className="mt-8 max-w-[250px] text-sm leading-7 text-[hsl(var(--muted-foreground))]">Business, branding, technology, creative direction and communication — seeing the whole system to build something meaningful.</p>
+          </div>
+          <h2 id="practice-heading" className="max-w-[920px] text-[clamp(3.4rem,8vw,8.5rem)] leading-[.78] tracking-[-.085em]">MANY HATS.<br /><span className="display-serif font-normal italic text-[hsl(var(--primary))]">ONE STANDARD.</span></h2>
         </div>
-        <div className="grid gap-0 border-t border-[hsl(var(--foreground)/.17)] lg:grid-cols-3">
-          {[
-            ['01', 'Notice', 'Start with the feeling. Pay attention to the details people move past, and the details they remember.'],
-            ['02', 'Shape', 'Turn an instinct into a clear point of view — then make the system strong enough to carry it.'],
-            ['03', 'Stay', 'Build for the long view. Let the work compound quietly, with patience and a standard that holds.'],
-          ].map(([number, title, copy], index) => (
-            <article key={number} className={`reveal reveal-delay-${index + 1} border-b border-[hsl(var(--foreground)/.17)] py-8 lg:border-b-0 lg:border-r lg:px-10 lg:py-10 ${index === 0 ? 'lg:pl-0' : ''} ${index === 2 ? 'lg:border-r-0' : ''}`}>
-              <div className="mb-20 flex items-start justify-between">
-                <span className="practice-index">{number}</span>
-                <span className="mono-label text-[hsl(var(--muted-foreground))]">Principle</span>
+        <div className="practice-list border-t border-[hsl(var(--foreground)/.17)]" aria-label="Founder capabilities">
+          {capabilities.map(([number, capability, category, description], index) => (
+            <article key={number} className={`practice-row reveal reveal-delay-${Math.min(index + 1, 3)}`} data-testid={`row-capability-${number}`}>
+              <span className="practice-row-number" aria-hidden="true">{number}</span>
+              <div className="practice-row-heading">
+                <h3>{capability}</h3>
+                <span className="mono-label">{category}</span>
               </div>
-              <h3 className="display-serif text-5xl italic text-[hsl(var(--primary))]">{title}</h3>
-              <p className="mt-5 max-w-[285px] text-sm leading-7 text-[hsl(var(--muted-foreground))]">{copy}</p>
+              <p className="practice-row-description">{description}</p>
+              <span className="practice-row-action" aria-hidden="true"><ArrowUpRight size={18} strokeWidth={1.2} /></span>
             </article>
           ))}
         </div>
       </section>
 
-      <section id="journey" className="maroon-panel px-5 py-24 sm:px-8 lg:px-12 lg:py-36" aria-labelledby="journey-heading">
+      <section id="journey" className="journey-section px-5 py-24 sm:px-8 lg:px-12 lg:py-40" aria-labelledby="journey-heading">
         <div className="mx-auto max-w-[1500px]">
-          <div className="reveal grid gap-8 border-b border-[hsl(var(--primary-foreground)/.24)] pb-16 lg:grid-cols-[.75fr_1.25fr] lg:items-end lg:gap-20">
-            <p className="mono-label text-[hsl(var(--secondary))]">04 / The journey</p>
-            <h2 id="journey-heading" className="max-w-[850px] text-[clamp(3.1rem,7vw,7.5rem)] leading-[.83] tracking-[-.08em]">The path is<br /><span className="display-serif font-normal italic text-[hsl(var(--secondary))]">the point.</span></h2>
+          <div className="journey-intro grid gap-8 border-b border-[hsl(var(--foreground)/.17)] pb-16 lg:grid-cols-[.72fr_1.28fr] lg:items-end lg:gap-20">
+            <div>
+              <p className="mono-label text-[hsl(var(--primary))]">04 / The journey</p>
+              <p className="mt-8 max-w-[250px] text-sm leading-7 text-[hsl(var(--muted-foreground))]">A biography in chapters — not a neat timeline, but a direction shaped by curiosity, self-dependence and the decision to keep building.</p>
+            </div>
+            <h2 id="journey-heading" className="max-w-[920px] text-[clamp(3.4rem,8vw,8.5rem)] leading-[.78] tracking-[-.085em]">LEARN FIRST.<br /><span className="display-serif font-normal italic text-[hsl(var(--primary))]">BUILD FORWARD.</span></h2>
           </div>
-          <div className="grid gap-12 pt-14 lg:grid-cols-[.75fr_1.25fr] lg:gap-20">
-            <div className="reveal">
-              <p className="max-w-[290px] text-sm leading-7 text-[hsl(var(--primary-foreground)/.64)]">There is no neat timeline here. Only a direction: to keep making, keep learning, and keep choosing the less obvious version when it feels more true.</p>
-              <span className="mono-label mt-12 block text-[hsl(var(--secondary)/.72)]">Mumbai, India / Present</span>
+          <div className="journey-timeline">
+            <span className="journey-timeline-track" aria-hidden="true" />
+            <div className="journey-milestones">
+              {journeyMilestones.map((milestone, index) => (
+                <article key={milestone.number} className={`journey-milestone reveal reveal-delay-${Math.min(index + 1, 3)}`} data-testid={`milestone-journey-${milestone.number}`}>
+                  <div className="journey-marker" aria-hidden="true"><span>{milestone.number}</span></div>
+                  <div className="journey-milestone-period mono-label">{milestone.period}</div>
+                  <div className="journey-milestone-content">
+                    <h3>{milestone.title}</h3>
+                    <div className="journey-milestone-copy">{milestone.copy}</div>
+                  </div>
+                </article>
+              ))}
             </div>
-            <div className="reveal reveal-delay-1">
-              <div className="flex gap-6 border-b border-[hsl(var(--primary-foreground)/.24)] py-5">
-                <span className="mono-label w-16 pt-1 text-[hsl(var(--secondary))]">Now</span>
-                <p className="max-w-[530px] text-lg leading-8 text-[hsl(var(--primary-foreground)/.86)]">Building ZARVORA and the thinking behind it. Learning what it takes to turn a distinct feeling into something people can hold.</p>
-              </div>
-              <div className="flex gap-6 border-b border-[hsl(var(--primary-foreground)/.24)] py-5">
-                <span className="mono-label w-16 pt-1 text-[hsl(var(--secondary))]">Next</span>
-                <p className="max-w-[530px] text-lg leading-8 text-[hsl(var(--primary-foreground)/.86)]">More experiments across brands, business, technology, and the spaces where they meet. The next chapter will reveal itself through the work.</p>
-              </div>
-            </div>
+          </div>
+          <div className="journey-closing reveal">
+            <p className="display-serif journey-closing-quote">“I didn’t follow a predefined path.<br /><span>I built my own.”</span></p>
+            <p className="mono-label journey-closing-signoff">SAMAY MISHRA <span>/ FOUNDER</span></p>
           </div>
         </div>
       </section>

@@ -533,6 +533,218 @@
   line-height: .8;
 }
 
+.practice-list {
+  border-bottom: 1px solid hsl(var(--foreground) / .17);
+}
+
+.practice-row {
+  display: grid;
+  grid-template-columns: 7rem minmax(14rem, .9fr) 1.1fr 3rem;
+  align-items: center;
+  gap: 1.5rem;
+  min-height: 10.5rem;
+  border-bottom: 1px solid hsl(var(--foreground) / .17);
+  transition: background-color .45s ease, padding-left .45s cubic-bezier(.2,.7,.2,1), transform .45s cubic-bezier(.2,.7,.2,1);
+}
+
+.practice-row:last-child { border-bottom: 0; }
+
+.practice-row:hover,
+.practice-row:focus-within {
+  padding-left: .8rem;
+  background: hsl(var(--primary) / .035);
+  transform: translateZ(0);
+}
+
+.practice-row-number {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  color: hsl(var(--primary) / .34);
+  font-family: var(--app-font-serif);
+  font-size: clamp(4rem, 7vw, 7rem);
+  letter-spacing: -.08em;
+  line-height: .75;
+}
+
+.practice-row-heading h3 {
+  margin: 0;
+  font-size: clamp(1.15rem, 2vw, 1.8rem);
+  font-weight: 500;
+  letter-spacing: -.04em;
+  line-height: .95;
+}
+
+.practice-row-heading .mono-label {
+  display: block;
+  margin-top: .7rem;
+  color: hsl(var(--primary));
+}
+
+.practice-row-description {
+  max-width: 34rem;
+  margin: 0;
+  color: hsl(var(--muted-foreground));
+  font-family: var(--app-font-serif);
+  font-size: clamp(1.18rem, 1.8vw, 1.55rem);
+  letter-spacing: -.02em;
+  line-height: 1.12;
+}
+
+.practice-row-action {
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  place-items: center;
+  border: 1px solid hsl(var(--foreground) / .2);
+  color: hsl(var(--primary));
+  transition: border-color .35s ease, background-color .35s ease, transform .35s cubic-bezier(.2,.7,.2,1);
+}
+
+.practice-row:hover .practice-row-action,
+.practice-row:focus-within .practice-row-action {
+  border-color: hsl(var(--primary) / .7);
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  transform: translate(2px, -2px);
+}
+
+.journey-section {
+  color: hsl(var(--foreground));
+  background:
+    radial-gradient(circle at 92% 12%, hsl(var(--secondary) / .14), transparent 21rem),
+    hsl(var(--background));
+}
+
+.journey-intro { opacity: 1; }
+
+.journey-timeline {
+  position: relative;
+  padding-top: 1rem;
+}
+
+.journey-timeline-track {
+  position: absolute;
+  z-index: 0;
+  top: 4rem;
+  bottom: 4rem;
+  left: 7.5rem;
+  width: 1px;
+  background: linear-gradient(to bottom, hsl(var(--accent) / .7), hsl(var(--primary) / .28) 75%, transparent);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 1.6s cubic-bezier(.2,.7,.2,1);
+}
+
+.journey-section.is-visible .journey-timeline-track { transform: scaleY(1); }
+
+.journey-milestone {
+  position: relative;
+  display: grid;
+  grid-template-columns: 7.5rem 10rem minmax(0, 1fr);
+  gap: 1.5rem;
+  padding: 3.8rem 0;
+  border-bottom: 1px solid hsl(var(--foreground) / .14);
+}
+
+.journey-marker {
+  z-index: 1;
+  display: grid;
+  width: 1.15rem;
+  height: 1.15rem;
+  place-items: center;
+  align-self: start;
+  justify-self: center;
+  margin-top: .2rem;
+  border: 1px solid hsl(var(--accent));
+  border-radius: 50%;
+  background: hsl(var(--background));
+}
+
+.journey-marker span {
+  width: .3rem;
+  height: .3rem;
+  border-radius: 50%;
+  background: hsl(var(--accent));
+}
+
+.journey-milestone-period {
+  padding-top: .2rem;
+  color: hsl(var(--primary));
+}
+
+.journey-milestone-content {
+  max-width: 700px;
+}
+
+.journey-milestone-content h3 {
+  margin: 0 0 1.4rem;
+  color: hsl(var(--foreground));
+  font-family: var(--app-font-serif);
+  font-size: clamp(2.4rem, 5vw, 5.7rem);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -.055em;
+  line-height: .82;
+  text-transform: uppercase;
+}
+
+.journey-milestone-copy {
+  max-width: 570px;
+  color: hsl(var(--muted-foreground));
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.journey-milestone-copy p {
+  margin: 0 0 1.1rem;
+}
+
+.journey-milestone-copy p:last-child { margin-bottom: 0; }
+
+.journey-revenue {
+  color: hsl(var(--primary));
+  font-family: var(--app-font-serif);
+  font-size: clamp(2.1rem, 4vw, 4.4rem);
+  letter-spacing: -.045em;
+  line-height: .9;
+}
+
+.journey-revenue span {
+  display: inline-block;
+  margin-left: .5rem;
+  color: hsl(var(--muted-foreground));
+  font-family: var(--app-font-mono);
+  font-size: .62rem;
+  letter-spacing: .1em;
+  line-height: 1;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+.journey-closing {
+  display: grid;
+  gap: 2rem;
+  padding: 9rem 0 2rem;
+  border-bottom: 1px solid hsl(var(--foreground) / .17);
+}
+
+.journey-closing-quote {
+  margin: 0;
+  color: hsl(var(--foreground));
+  font-size: clamp(3rem, 7.5vw, 8rem);
+  letter-spacing: -.065em;
+  line-height: .82;
+}
+
+.journey-closing-quote span { color: hsl(var(--primary)); }
+
+.journey-closing-signoff {
+  color: hsl(var(--primary));
+}
+
+.journey-closing-signoff span { color: hsl(var(--muted-foreground)); }
+
 .focus-ring:focus-visible, a:focus-visible, button:focus-visible {
   outline: 2px solid hsl(var(--accent));
   outline-offset: 5px;
@@ -559,6 +771,36 @@
   .zarvora-archive-index { grid-row: span 2; align-self: start; padding-top: .2rem; }
   .zarvora-archive-categories { grid-column: 2; }
   .zarvora-exit-transition { min-height: 8rem; padding-top: 6rem; }
+  .practice-row {
+    grid-template-columns: 4.4rem 1fr 2.5rem;
+    gap: .8rem;
+    min-height: 9.5rem;
+    padding: 1rem 0;
+  }
+  .practice-row-number { font-size: 4.4rem; }
+  .practice-row-description {
+    grid-column: 2 / 4;
+    grid-row: 2;
+    padding-right: 2rem;
+    font-size: 1.25rem;
+  }
+  .practice-row-action { grid-column: 3; grid-row: 1; }
+  .journey-timeline-track { left: .55rem; }
+  .journey-milestone {
+    grid-template-columns: 2.2rem 1fr;
+    gap: .8rem 1.2rem;
+    padding: 3rem 0;
+  }
+  .journey-marker {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    justify-self: start;
+  }
+  .journey-milestone-period { grid-column: 2; }
+  .journey-milestone-content { grid-column: 2; }
+  .journey-milestone-content h3 { font-size: clamp(2.7rem, 12vw, 4.4rem); }
+  .journey-revenue span { display: block; margin: .65rem 0 0; }
+  .journey-closing { padding-top: 6rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {

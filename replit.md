@@ -22,8 +22,8 @@ A premium editorial portfolio for Samay Mishra, known to many as Biraj, and the 
 
 ## Where things live
 
-- `artifacts/samay-portfolio/src/App.tsx` — single-page portfolio shell, navigation, dynamic founder details, and SEO metadata.
-- `artifacts/samay-portfolio/src/index.css` — shared editorial visual language, responsive layout, motion, and reduced-motion rules.
+- `artifacts/samay-portfolio/src/App.tsx` — single-page portfolio shell, navigation, founder details, ZARVORA world, capabilities, journey chapters, and SEO metadata.
+- `artifacts/samay-portfolio/src/index.css` — shared editorial visual language, responsive layout, ZARVORA palette, timeline, motion, and reduced-motion rules.
 - `artifacts/samay-portfolio` — deployable Vite web artifact served at `/`.
 
 ## Architecture decisions
@@ -35,7 +35,7 @@ A premium editorial portfolio for Samay Mishra, known to many as Biraj, and the 
 
 ## Product
 
-The site introduces Samay as an independent founder through a long-form editorial narrative, with a featured ZARVORA link, practice principles, journey notes, and contact direction.
+The site introduces Samay as an independent founder through a long-form editorial narrative, with a featured ZARVORA chapter, six capabilities, a chapter-based founder journey, and contact direction.
 
 ## User preferences
 
