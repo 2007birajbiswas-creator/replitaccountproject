@@ -1,0 +1,259 @@
+PART 3 OF 5 — PRACTICE, CAPABILITIES AND FOUNDER JOURNEY
+
+Continue the existing website.
+
+Preserve the exact visual system established in Parts 1 and 2.
+
+This section should explain what Samay actually does and how his journey shaped him.
+
+==================================================
+1. PRACTICE SECTION
+==================================================
+
+Headline:
+
+MANY HATS.
+ONE STANDARD.
+
+Supporting idea:
+
+I work across business, branding, technology, creative direction and communication — not because every role needs a title, but because building something meaningful often requires seeing the whole system.
+
+Create six editorial capability rows.
+
+01
+COMMERCE / OPERATOR
+Building businesses with attention to product, customers, systems and execution.
+
+02
+BRAND SYSTEMS / BUILDER
+Turning an idea into a coherent identity, experience and commercial system.
+
+03
+CREATIVE DIRECTION / DIRECTOR
+Shaping visual language, presentation, detail and overall taste.
+
+04
+TECHNOLOGY / TECHNOLOGIST
+Using technology to build useful systems, digital experiences and scalable foundations.
+
+05
+COMMUNICATION / COMMUNICATOR
+Public speaking, presenting ideas and making complex thoughts understandable.
+
+06
+OBSERVATION / OBSERVER
+A strong eye for human behaviour, social dynamics, patterns and the details people often overlook.
+
+IMPORTANT:
+Do not claim literal mind-reading.
+Present observation as a strong ability to understand behaviour and patterns.
+
+Each row should contain:
+- Large number
+- Capability
+- Description
+- Small category label
+- Interactive plus/arrow
+
+Hover:
+- subtle 3D displacement
+- typography movement
+- line animation
+
+==================================================
+2. JOURNEY SECTION
+==================================================
+
+Headline:
+
+LEARN FIRST.
+BUILD FORWARD.
+
+Create a premium vertical timeline.
+
+Use restrained animation:
+The timeline line draws as the user scrolls.
+Each milestone enters progressively.
+
+==================================================
+3. CHILDHOOD
+==================================================
+
+Title:
+
+CHILDHOOD
+LEARNING INDEPENDENCE
+
+Copy:
+
+“I spent much of my childhood in hostel.
+
+Those years changed the way I looked at the world. Being independent at a young age taught me survival, respect, social awareness, self-dependence and how to navigate different kinds of people and situations.”
+
+Do not over-dramatize it.
+
+==================================================
+4. EARLY INTEREST
+==================================================
+
+Title:
+
+BEFORE THE BRANDS
+
+Copy:
+
+“I was interested in business and technology from an early age.
+
+I always found myself curious about how things work, why people make certain decisions, and how an idea can become something real.”
+
+Do not present genetics as a proven explanation.
+
+==================================================
+5. KOLKATA / PROFESSIONAL EXPERIENCE
+==================================================
+
+Title:
+
+KOLKATA
+FULL-STACK DEVELOPER / DESIGNER
+
+Copy:
+
+“After school and my education, the expectation around me was familiar: continue into the family hotel business and my father’s government contracting work.
+
+I chose differently.
+
+I wanted to become self-dependent and build something I could genuinely call my own.
+
+I found an opportunity in Kolkata and spent more than a year working as a full-stack developer and designer.”
+
+Do not invent the company name.
+Do not invent a degree.
+
+==================================================
+6. ZAYANA
+==================================================
+
+Title:
+
+2024–2025
+ZAYANA / FIRST BRAND
+
+Copy:
+
+“During that period, I launched my first brand — ZAYANA.
+
+A premium, royal, female-focused concept designed to test whether my ideas around branding, commerce and customer experience could work in the real world.”
+
+Then:
+
+“ZAYANA generated more than ₹1.38 crore in one year.”
+
+This number is provided by me.
+Display it confidently but do not exaggerate it into a larger claim.
+
+Then explain:
+
+“It taught me far more than revenue ever could — branding, customers, operations, decision-making, systems, resilience and what happens when an idea meets reality.”
+
+==================================================
+7. EXIT / RESET
+==================================================
+
+Title:
+
+2025
+EXIT / RESET
+
+Copy:
+
+“ZAYANA eventually moved on to a Gujarat-based brand.
+
+I took a few months to step back, examine what worked, what did not, and what I wanted to build next.
+
+That pause gave me clarity.”
+
+Do not invent acquisition/legal details.
+
+==================================================
+8. RESIGNING THE JOB
+==================================================
+
+Title:
+
+THE DECISION
+
+Copy:
+
+“I eventually resigned from my job and chose to focus completely on the project I had been carrying in my head for much longer.
+
+Not because the path was guaranteed.
+
+Because it was mine.”
+
+==================================================
+9. ZARVORA
+==================================================
+
+Title:
+
+2026 — ONWARD
+ZARVORA
+
+Copy:
+
+“ZARVORA is the long-term project.
+
+A premium fashion and commerce house built around Indian heritage, contemporary design, thoughtful presentation and a much longer view.
+
+The goal is not simply to sell products.
+
+The goal is to build a house brand people recognize for how it makes them feel.”
+
+==================================================
+10. JOURNEY CLOSING
+==================================================
+
+Large closing statement:
+
+“I didn’t follow a predefined path.
+I built my own.”
+
+Below:
+
+SAMAY MISHRA
+FOUNDER
+
+==================================================
+11. VISUAL TREATMENT
+==================================================
+
+Make this feel like a luxury editorial biography.
+
+Use:
+- Large typography
+- Thin timeline
+- Numbered milestones
+- Archival-feeling spacing
+- Subtle texture
+- Warm neutral background
+- Occasional maroon/gold accents
+
+Do NOT create a generic resume timeline.
+
+Every milestone should feel like a chapter.
+
+==================================================
+12. RESPONSIVENESS
+==================================================
+
+Desktop:
+Timeline can sit beside large typography.
+
+Mobile:
+Convert intelligently into a clean vertical story.
+
+No horizontal scrolling.
+
+Finish Part 3 completely before Part 4.

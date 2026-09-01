@@ -44,6 +44,22 @@ const navItems = [
   { label: 'CONTACT', target: 'contact' },
 ];
 
+const zarvoraPhilosophy = [
+  ['01', 'POINT OF VIEW', 'Clear before loud.'],
+  ['02', 'PRODUCT', 'Worth keeping.'],
+  ['03', 'EXPERIENCE', 'Every detail counts.'],
+  ['04', 'ORIGIN', 'Built from Mumbai.'],
+];
+
+const zarvoraCollections = [
+  ['RAJVAIBHAV COLLECTION', 'Rajasthani Poshaks'],
+  ['TIMELESS DRAPES COLLECTION', 'Sarees'],
+  ['ROYAL SILHOUETTES COLLECTION', 'Kurta Sets / Farshi Sets / Anarkalis'],
+  ['IMPERIAL HEIRLOOM COLLECTION', 'Lehengas'],
+  ['ETERNAL RADIANCE COLLECTION', 'Fashion Jewellery'],
+  ['SACRED GRACE COLLECTION', 'Mangalsutras'],
+];
+
 function Header({ menuOpen, onToggle }: { menuOpen: boolean; onToggle: () => void }) {
   const navigate = (target: string) => {
     document.getElementById(target)?.scrollIntoView({ behavior: 'smooth' });
@@ -276,30 +292,108 @@ function App() {
         </div>
       </section>
 
-      <section id="zarvora" className="border-y border-[hsl(var(--foreground)/.16)] bg-[hsl(var(--card))] px-5 py-24 sm:px-8 lg:px-12 lg:py-36" aria-labelledby="zarvora-heading">
-        <div className="mx-auto grid max-w-[1500px] gap-16 lg:grid-cols-[.62fr_1fr] lg:items-center lg:gap-28">
-          <div className="reveal">
-            <p className="mono-label mb-8 text-[hsl(var(--primary))]">02 / A living chapter</p>
-            <div className="relative border border-[hsl(var(--primary)/.35)] p-5">
-              <div className="flex aspect-[1.08] flex-col justify-between bg-[hsl(var(--primary))] p-7 text-[hsl(var(--primary-foreground))] sm:p-10">
-                <div className="flex items-start justify-between">
-                  <span className="text-[.68rem] tracking-[.3em]">ZARVORA</span>
-                  <span className="mono-label text-[hsl(var(--secondary))]">Est. / in the making</span>
-                </div>
-                <div>
-                  <p className="display-serif text-[clamp(3.6rem,8vw,7rem)] leading-[.78] tracking-[-.06em]">Legacy<br /><span className="italic text-[hsl(var(--secondary))]">of Elegance</span></p>
-                  <div className="mt-8 h-px w-full bg-[hsl(var(--secondary)/.35)]" />
-                  <p className="mono-label mt-3 text-[hsl(var(--primary-foreground)/.6)]">A brand by Samay Mishra</p>
-                </div>
+      <section id="zarvora" className="zarvora-chapter relative overflow-hidden border-y border-[hsl(var(--zarvora-gold)/.35)] px-5 py-24 sm:px-8 lg:px-12 lg:py-36" aria-labelledby="zarvora-heading">
+        <span className="zarvora-particle zarvora-particle-one" aria-hidden="true" />
+        <span className="zarvora-particle zarvora-particle-two" aria-hidden="true" />
+        <span className="zarvora-particle zarvora-particle-three" aria-hidden="true" />
+        <div className="zarvora-inner relative z-10 mx-auto max-w-[1500px]">
+          <div className="reveal zarvora-opening grid gap-14 border-b border-[hsl(var(--zarvora-ivory)/.22)] pb-20 lg:grid-cols-[.7fr_1.3fr] lg:items-end lg:gap-20">
+            <div>
+              <p className="mono-label mb-8 text-[hsl(var(--zarvora-gold))]" data-testid="text-zarvora-chapter-label">02 / A living chapter</p>
+              <div className="zarvora-wordmark-wrap">
+                <p className="zarvora-wordmark-text" data-testid="text-zarvora-brand">ZARVORA</p>
+                <p className="zarvora-tagline" data-testid="text-zarvora-tagline">Legacy of Elegance</p>
               </div>
-              <span className="absolute -bottom-3 -right-3 bg-[hsl(var(--card))] px-3 py-1 mono-label text-[hsl(var(--primary))]">Z / 01</span>
+              <div className="zarvora-drawn-rule mt-8" aria-hidden="true" />
+              <p className="mono-label mt-4 text-[hsl(var(--zarvora-ivory)/.63)]" data-testid="text-zarvora-ownership">OWNED / OPERATED BY SAMAY MISHRA</p>
+            </div>
+            <div className="max-w-[780px] lg:pb-1">
+              <p className="mono-label mb-6 text-[hsl(var(--zarvora-gold))]">Flagship creation / Mumbai</p>
+              <h2 id="zarvora-heading" className="display-serif max-w-[800px] text-[clamp(3rem,6.8vw,7.5rem)] leading-[.86] tracking-[-.06em] text-[hsl(var(--zarvora-ivory))]">Legacy of<br /><span className="italic text-[hsl(var(--zarvora-gold))]">Elegance.</span></h2>
             </div>
           </div>
-          <div className="reveal reveal-delay-1 max-w-[720px]">
-            <p className="mono-label mb-6 text-[hsl(var(--primary))]">Zarvora / zarvora.shop</p>
-            <h2 id="zarvora-heading" className="text-[clamp(2.8rem,6vw,6.8rem)] font-medium leading-[.86] tracking-[-.075em]">A first chapter,<br /><span className="display-serif font-normal italic text-[hsl(var(--primary))]">made to last.</span></h2>
-            <p className="mt-10 max-w-[530px] text-[1.04rem] leading-[1.75] text-[hsl(var(--foreground)/.7)]">ZARVORA is the independent brand I’m building from the ground up — a study in elegance, identity, and the feeling that something can become part of your story.</p>
-            <a href="https://zarvora.shop" target="_blank" rel="noreferrer" data-testid="link-zarvora-chapter" className="line-link mt-10 mono-label text-[hsl(var(--primary))]">Visit zarvora.shop <ArrowUpRight size={15} strokeWidth={1.4} /></a>
+
+          <div className="grid gap-16 py-20 lg:grid-cols-[.72fr_1.28fr] lg:gap-24 lg:py-28">
+            <div className="reveal">
+              <p className="mono-label mb-7 text-[hsl(var(--zarvora-gold))]">A house in the making</p>
+              <p className="max-w-[520px] text-[clamp(1.45rem,2.5vw,2.45rem)] leading-[1.12] tracking-[-.035em] text-[hsl(var(--zarvora-ivory))]" data-testid="text-zarvora-main-statement">ZARVORA is the living proof of the philosophy: make the product worthy, then make every touchpoint agree.</p>
+            </div>
+            <div className="reveal reveal-delay-1 max-w-[720px] lg:ml-auto">
+              <p className="text-[1rem] leading-[1.8] text-[hsl(var(--zarvora-ivory)/.72)]" data-testid="text-zarvora-description">ZARVORA is a premium fashion and commerce house being built from Mumbai with a global eye — combining Indian heritage, contemporary design, thoughtful presentation and an experience that respects the person on the other side of the screen.</p>
+              <p className="mt-7 text-[1rem] leading-[1.8] text-[hsl(var(--zarvora-ivory)/.72)]" data-testid="text-zarvora-long-term">It is my long-term project — built with more clarity, more patience and more intention than my first venture.</p>
+              <div className="mt-12 flex flex-wrap items-center gap-8">
+                <a href="https://zarvora.shop" target="_blank" rel="noreferrer" data-testid="link-visit-zarvora" className="zarvora-cta zarvora-cta-primary mono-label">VISIT ZARVORA <ArrowUpRight size={15} strokeWidth={1.4} /></a>
+                <button type="button" onClick={() => scrollTo('contact')} data-testid="button-ask-about-zarvora" className="zarvora-cta zarvora-cta-secondary mono-label">ASK ABOUT ZARVORA <ArrowDown size={14} strokeWidth={1.4} /></button>
+              </div>
+            </div>
+          </div>
+
+          <div className="reveal border-t border-[hsl(var(--zarvora-ivory)/.22)] pt-8" aria-labelledby="zarvora-philosophy-heading">
+            <div className="mb-10 flex items-end justify-between gap-8">
+              <div>
+                <p className="mono-label mb-4 text-[hsl(var(--zarvora-gold))]">The house / 01</p>
+                <h3 id="zarvora-philosophy-heading" className="display-serif text-[clamp(3.2rem,6vw,6.6rem)] leading-[.84] tracking-[-.055em] text-[hsl(var(--zarvora-ivory))]">LEGACY OF<br /><span className="italic text-[hsl(var(--zarvora-gold))]">ELEGANCE.</span></h3>
+              </div>
+              <span className="mono-label hidden pb-1 text-right text-[hsl(var(--zarvora-ivory)/.5)] sm:block">A point of view<br />held in four parts</span>
+            </div>
+            <div className="zarvora-philosophy-list">
+              {zarvoraPhilosophy.map(([number, label, copy], index) => (
+                <div key={number} className={`zarvora-philosophy-row reveal reveal-delay-${Math.min(index + 1, 3)}`} data-testid={`row-zarvora-philosophy-${number}`}>
+                  <span className="zarvora-row-number" aria-hidden="true">{number}</span>
+                  <span className="mono-label zarvora-row-label">{label}</span>
+                  <span className="zarvora-row-copy">{copy}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="reveal mt-24 border-t border-[hsl(var(--zarvora-ivory)/.22)] pt-8 lg:mt-36" aria-labelledby="zarvora-archive-heading">
+            <div className="mb-10 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+              <div>
+                <p className="mono-label mb-4 text-[hsl(var(--zarvora-gold))]">The archive / 02</p>
+                <h3 id="zarvora-archive-heading" className="display-serif text-[clamp(2.8rem,5vw,5.7rem)] leading-[.85] tracking-[-.05em] text-[hsl(var(--zarvora-ivory))]">An archive of <span className="italic text-[hsl(var(--zarvora-gold))]">possibility.</span></h3>
+              </div>
+              <span className="mono-label text-[hsl(var(--zarvora-ivory)/.5)]">Six expressions / one house</span>
+            </div>
+            <div className="zarvora-archive-list">
+              {zarvoraCollections.map(([collection, categories], index) => (
+                <div key={collection} className={`zarvora-archive-row reveal reveal-delay-${Math.min(index + 1, 3)}`} data-testid={`row-zarvora-collection-${index + 1}`}>
+                  <span className="mono-label zarvora-archive-index">0{index + 1}</span>
+                  <span className="zarvora-archive-name">{collection}</span>
+                  <span className="zarvora-archive-categories">{categories}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="reveal zarvora-sacred-feature mt-24 border-y border-[hsl(var(--zarvora-gold)/.45)] py-16 lg:mt-36 lg:grid lg:grid-cols-[.72fr_1.28fr] lg:gap-20 lg:py-24">
+            <div>
+              <p className="mono-label mb-5 text-[hsl(var(--zarvora-gold))]">A closer look / Sacred Grace</p>
+              <h3 className="display-serif text-[clamp(3rem,5.6vw,6rem)] leading-[.82] tracking-[-.06em] text-[hsl(var(--zarvora-ivory))]">SACRED<br /><span className="italic text-[hsl(var(--zarvora-gold))]">GRACE.</span></h3>
+            </div>
+            <div className="mt-10 max-w-[670px] lg:mt-0 lg:ml-auto">
+              <p className="text-[clamp(1.25rem,2vw,1.8rem)] leading-[1.25] text-[hsl(var(--zarvora-ivory))]" data-testid="text-sacred-grace-tribute">A tribute to love, commitment and timeless tradition reimagined for the modern woman.</p>
+              <p className="mt-6 text-base leading-7 text-[hsl(var(--zarvora-ivory)/.68)]" data-testid="text-sacred-grace-description">Mangalsutras blending heritage with contemporary sophistication.</p>
+              <p className="zarvora-signature mt-14" data-testid="text-sacred-grace-signature">ZARVORA — Legacy of Elegance.</p>
+            </div>
+          </div>
+
+          <div className="reveal grid gap-10 border-b border-[hsl(var(--zarvora-ivory)/.22)] py-20 lg:grid-cols-[.72fr_1.28fr] lg:gap-20 lg:py-28" aria-labelledby="founders-note-heading">
+            <div>
+              <p className="mono-label mb-5 text-[hsl(var(--zarvora-gold))]">Founder’s Note / 03</p>
+              <h3 id="founders-note-heading" className="display-serif text-[clamp(3.6rem,7vw,7.8rem)] leading-[.78] tracking-[-.065em] text-[hsl(var(--zarvora-ivory))]">MAKE IT<br /><span className="italic text-[hsl(var(--zarvora-gold))]">WORTHY.</span></h3>
+            </div>
+            <div className="max-w-[650px] lg:ml-auto">
+              <p className="text-[1.12rem] leading-[1.75] text-[hsl(var(--zarvora-ivory)/.82)]" data-testid="text-founders-note-primary">I’m not interested in building something simply because it can be built. I care about why it should exist, how it should feel, and whether it deserves to stay.</p>
+              <p className="mt-7 display-serif text-[clamp(1.8rem,3vw,3rem)] leading-[1.05] text-[hsl(var(--zarvora-gold))]" data-testid="text-founders-note-secondary">Good businesses solve problems. Great brands make people care.</p>
+              <div className="mt-12 border-t border-[hsl(var(--zarvora-ivory)/.22)] pt-5">
+                <p className="zarvora-signoff" data-testid="text-founders-note-signoff">SAMAY MISHRA <span>/ FOUNDER / </span><em>Known to many as Biraj.</em></p>
+              </div>
+            </div>
+          </div>
+
+          <div className="zarvora-exit-transition" aria-hidden="true">
+            <span className="mono-label">From the house / back to the practice</span>
           </div>
         </div>
       </section>
