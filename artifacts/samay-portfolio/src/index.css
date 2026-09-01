@@ -242,6 +242,19 @@
   background: hsl(var(--secondary) / .3);
 }
 
+.portrait-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 22%;
+  filter: saturate(.78) contrast(.95);
+  transition: transform 1.2s cubic-bezier(.2,.7,.2,1), filter .8s ease;
+}
+
+.portrait-frame:hover .portrait-image { transform: scale(1.035); filter: saturate(.92) contrast(1); }
+
 .portrait-mark {
   z-index: 1;
   font-size: clamp(5rem, 13vw, 10rem);
@@ -315,6 +328,16 @@
 .zarvora-opening { min-height: 36rem; }
 
 .zarvora-wordmark-wrap { position: relative; }
+
+.zarvora-logo-art {
+  display: block;
+  width: min(100%, 330px);
+  height: 180px;
+  object-fit: contain;
+  object-position: left center;
+  mix-blend-mode: screen;
+  filter: saturate(.78) brightness(.92);
+}
 
 .zarvora-wordmark-text {
   margin: 0;
@@ -701,6 +724,25 @@
 }
 
 .journey-milestone-copy p:last-child { margin-bottom: 0; }
+
+.journey-brand-visual {
+  max-width: 220px;
+  margin: 1.8rem 0 2rem;
+}
+
+.journey-brand-visual img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: 1px solid hsl(var(--foreground) / .14);
+  filter: saturate(.78);
+}
+
+.journey-brand-visual figcaption {
+  padding-top: .65rem;
+  color: hsl(var(--primary));
+}
 
 .journey-revenue {
   color: hsl(var(--primary));
@@ -1096,6 +1138,262 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+.contact-footer {
+  position: relative;
+}
+
+.contact-workspace {
+  display: grid;
+  grid-template-columns: .72fr 1.28fr;
+  gap: 5rem;
+  margin-top: 8rem;
+  padding: 2.5rem 0 0;
+  border-top: 1px solid hsl(var(--foreground) / .17);
+}
+
+.contact-details {
+  display: grid;
+  align-content: start;
+  gap: 2.5rem;
+}
+
+.contact-detail {
+  display: grid;
+  gap: 1.25rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid hsl(var(--foreground) / .14);
+}
+
+.contact-email {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: fit-content;
+  max-width: 100%;
+  color: hsl(var(--foreground));
+  font-family: var(--app-font-serif);
+  font-size: clamp(1.35rem, 2.2vw, 2.1rem);
+  letter-spacing: -.035em;
+  line-height: 1;
+  text-decoration: none;
+  transition: color .3s ease, transform .3s ease;
+}
+
+.contact-email:hover,
+.contact-email:focus-visible { color: hsl(var(--primary)); transform: translateX(.35rem); }
+
+.contact-form-shell {
+  display: grid;
+  grid-template-columns: .65fr 1.35fr;
+  gap: 3rem;
+  padding: 0 0 2.5rem;
+  border-bottom: 1px solid hsl(var(--foreground) / .17);
+}
+
+.contact-form {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.contact-field {
+  display: grid;
+  gap: .65rem;
+}
+
+.contact-field input,
+.contact-field textarea {
+  width: 100%;
+  resize: vertical;
+  padding: .85rem 0 .8rem;
+  border: 0;
+  border-bottom: 1px solid hsl(var(--foreground) / .22);
+  border-radius: 0;
+  outline: 0;
+  color: hsl(var(--foreground));
+  background: transparent;
+  font-family: var(--app-font-sans);
+  font-size: 1rem;
+  line-height: 1.5;
+  transition: border-color .3s ease;
+}
+
+.contact-field input::placeholder,
+.contact-field textarea::placeholder { color: hsl(var(--muted-foreground) / .62); }
+
+.contact-field input:focus,
+.contact-field textarea:focus { border-color: hsl(var(--primary)); }
+
+.contact-field input:invalid:not(:placeholder-shown),
+.contact-field textarea:invalid:not(:placeholder-shown) { border-color: hsl(var(--destructive)); }
+
+.contact-field textarea { min-height: 7rem; }
+
+.contact-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  margin-top: .8rem;
+  padding: 1rem 0;
+  border: 0;
+  border-bottom: 1px solid hsl(var(--primary));
+  color: hsl(var(--primary));
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  transition: padding-left .35s ease, color .35s ease, background-color .35s ease;
+}
+
+.contact-submit:hover,
+.contact-submit:focus-visible {
+  padding-left: .7rem;
+  color: hsl(var(--primary-foreground));
+  background: hsl(var(--primary));
+}
+
+.contact-form-status {
+  display: none;
+  gap: .5rem;
+  padding: 1rem;
+  border-left: 2px solid hsl(var(--primary));
+  color: hsl(var(--muted-foreground));
+  font-size: .85rem;
+  line-height: 1.5;
+}
+
+.contact-form-status.success,
+.contact-form-status.unconfigured,
+.contact-form-status.error { display: grid; }
+.contact-form-status strong { color: hsl(var(--primary)); font-family: var(--app-font-mono); font-size: .62rem; letter-spacing: .12em; }
+.contact-form-status.error { border-color: hsl(var(--destructive)); }
+.contact-form-status.error strong { color: hsl(var(--destructive)); }
+
+.footer-main {
+  display: grid;
+  grid-template-columns: 1.35fr .75fr .55fr .75fr;
+  gap: 2rem;
+  padding: 7rem 0 5rem;
+  border-bottom: 1px solid hsl(var(--foreground) / .17);
+}
+
+.footer-identity,
+.footer-zarvora,
+.footer-nav,
+.footer-business { display: grid; align-content: start; }
+
+.footer-identity {
+  grid-template-columns: 2.7rem 1fr;
+  gap: 1rem;
+}
+
+.footer-monogram {
+  display: grid;
+  width: 2.7rem;
+  height: 2.7rem;
+  place-items: center;
+  border: 1px solid hsl(var(--foreground) / .35);
+  color: hsl(var(--foreground));
+  font-family: var(--app-font-serif);
+  font-size: 1.35rem;
+  font-style: italic;
+}
+
+.footer-name {
+  margin: 0 0 .5rem;
+  color: hsl(var(--foreground));
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .2em;
+}
+
+.footer-ethos {
+  max-width: 260px;
+  margin: 2.2rem 0 0;
+  color: hsl(var(--foreground));
+  font-size: clamp(1.35rem, 2.2vw, 2rem);
+  letter-spacing: -.035em;
+  line-height: .95;
+}
+
+.footer-zarvora {
+  gap: .75rem;
+  color: hsl(var(--primary));
+}
+
+.footer-zarvora-logo {
+  width: 100%;
+  max-width: 125px;
+  height: 70px;
+  object-fit: contain;
+  object-position: left center;
+  mix-blend-mode: multiply;
+  filter: saturate(.8) contrast(.95);
+}
+
+.footer-nav,
+.footer-business { gap: .8rem; }
+
+.footer-nav button,
+.footer-business a {
+  width: fit-content;
+  padding: 0;
+  border: 0;
+  color: hsl(var(--muted-foreground));
+  background: transparent;
+  font-family: var(--app-font-mono);
+  font-size: .62rem;
+  letter-spacing: .1em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color .25s ease, transform .25s ease;
+}
+
+.footer-nav button { cursor: pointer; text-align: left; }
+.footer-nav button:hover,
+.footer-nav button:focus-visible,
+.footer-business a:hover,
+.footer-business a:focus-visible { color: hsl(var(--primary)); transform: translateX(.25rem); }
+
+.footer-socials {
+  display: grid;
+  gap: .7rem;
+}
+
+.footer-socials a {
+  display: inline-flex;
+  align-items: center;
+  gap: .65rem;
+}
+
+.footer-socials a svg { color: hsl(var(--primary)); }
+
+.footer-final {
+  display: grid;
+  grid-template-columns: 1.35fr .65fr;
+  gap: 2rem;
+  align-items: end;
+  padding: 7rem 0 4rem;
+}
+
+.footer-final-quote {
+  margin: 0;
+  color: hsl(var(--foreground));
+  font-size: clamp(3rem, 6.5vw, 7.2rem);
+  letter-spacing: -.065em;
+  line-height: .84;
+}
+
+.footer-final-quote span { color: hsl(var(--primary)); }
+
+.footer-final-mark {
+  padding-bottom: .3rem;
+  text-align: right;
+}
+
+.footer-final-mark p { margin-bottom: 0; }
+
 .focus-ring:focus-visible, a:focus-visible, button:focus-visible {
   outline: 2px solid hsl(var(--accent));
   outline-offset: 5px;
@@ -1179,6 +1477,18 @@
   }
   .vision-orb-one { top: 42%; right: -13rem; width: 35rem; height: 35rem; }
   .vision-orb-two { top: 46%; right: -2rem; width: 18rem; height: 18rem; }
+  .portrait-image { object-position: center 18%; }
+  .zarvora-logo-art { width: 100%; height: 145px; }
+  .journey-brand-visual { max-width: 180px; }
+  .contact-workspace,
+  .contact-form-shell,
+  .footer-main,
+  .footer-final { grid-template-columns: 1fr; }
+  .contact-workspace { gap: 4rem; margin-top: 5rem; }
+  .contact-form-shell { gap: 2.5rem; }
+  .footer-main { gap: 3rem; padding: 5rem 0 4rem; }
+  .footer-final { gap: 3rem; padding: 5rem 0 3rem; }
+  .footer-final-mark { text-align: left; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,0 +1,1 @@
+- [Vite SEO metadata](vite-seo-metadata.md) — root-relative canonical links can be parsed as asset URLs; use runtime canonical resolution and explicit public social assets.

@@ -1,9 +1,19 @@
 import { lazy, Suspense, useEffect, useLayoutEffect, useRef, useState } from 'react';
-import type { CSSProperties } from 'react';
-import { ArrowDown, ArrowUpRight, Mail, MapPin, Menu, X } from 'lucide-react';
+import type { CSSProperties, FormEvent } from 'react';
+import { ArrowDown, ArrowUpRight, MapPin, Menu, X } from 'lucide-react';
+import { FaFacebookF, FaInstagram } from 'react-icons/fa6';
 import { journeyPlaces, type JourneyPlace } from '@/data/journey-places';
+import portraitImage from '@assets/IMG-20260901-WA0010_1788299838276.jpg';
+import zayanaImage from '@assets/IMG-20260902-WA0003_1788299389599.jpg';
+import zarvoraLogo from '@assets/file_000000001bdc82118bc573833a191e6c_1788299389616.png';
 
 const DeferredJourneyMap = lazy(() => import('@/components/journey-map'));
+const CONTACT_FORM_ENDPOINT = import.meta.env.VITE_CONTACT_FORM_ENDPOINT as string | undefined;
+const SEO_TITLE = 'Samay Mishra — Founder of ZARVORA | Legacy of Elegance';
+const SEO_DESCRIPTION =
+  'Samay Mishra, known to many as Biraj, is an independent founder and the owner of ZARVORA, building premium fashion, commerce and brand experiences from Mumbai.';
+const ZARVORA_INSTAGRAM = 'https://www.instagram.com/zarvora.shop?igsi=MW1rbHB6dWtueG5udQ==';
+const ZARVORA_FACEBOOK = 'https://www.facebook.com/zarvora.shop';
 
 const DOB = new Date(2005, 5, 21);
 
@@ -174,6 +184,10 @@ const journeyMilestones = [
     copy: (
       <>
         <p>During that period, I launched my first brand — ZAYANA.</p>
+        <figure className="journey-brand-visual">
+          <img src={zayanaImage} alt="ZAYANA wordmark with an infinity symbol and diamond" />
+          <figcaption className="mono-label">ZAYANA / First brand</figcaption>
+        </figure>
         <p>A premium, royal, female-focused concept designed to test whether my ideas around branding, commerce and customer experience could work in the real world.</p>
         <p className="journey-revenue">more than ₹1.38 crore <span>in one year</span></p>
         <p>It taught me far more than revenue ever could — branding, customers, operations, decision-making, systems, resilience and what happens when an idea meets reality.</p>
@@ -304,26 +318,59 @@ function Ornament() {
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedPlace, setSelectedPlace] = useState<JourneyPlace | null>(journeyPlaces[0]);
+  const [formStatus, setFormStatus] = useState<'idle' | 'success' | 'unconfigured' | 'error'>('idle');
+  const [formError, setFormError] = useState('');
   const age = getAge();
   useReveals();
   useJourneyProgress();
 
+  const handleContactSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    if (!form.reportValidity()) return;
+    setFormError('');
+
+    if (!CONTACT_FORM_ENDPOINT) {
+      setFormStatus('unconfigured');
+      return;
+    }
+
+    try {
+      const response = await fetch(CONTACT_FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(form).entries())),
+      });
+      if (!response.ok) throw new Error('The message service returned an error.');
+      form.reset();
+      setFormStatus('success');
+    } catch (error) {
+      setFormStatus('error');
+      setFormError(error instanceof Error ? error.message : 'The message could not be sent. Please use email instead.');
+    }
+  };
+
   useEffect(() => {
-    document.title = 'Samay Mishra — Independent Founder';
-    const description =
-      'Samay Mishra, known to many as Biraj, is an independent founder in Mumbai building brands, businesses and experiences where taste meets technology.';
+    document.title = SEO_TITLE;
     let meta = document.querySelector('meta[name="description"]');
     if (!meta) {
       meta = document.createElement('meta');
       meta.setAttribute('name', 'description');
       document.head.appendChild(meta);
     }
-    meta.setAttribute('content', description);
+    meta.setAttribute('content', SEO_DESCRIPTION);
     const social = [
-      ['og:title', 'Samay Mishra — Independent Founder'],
-      ['og:description', description],
+      ['og:title', SEO_TITLE],
+      ['og:description', SEO_DESCRIPTION],
       ['og:type', 'website'],
       ['og:locale', 'en_IN'],
+      ['og:url', window.location.href.split('#')[0]],
+      ['og:image', new URL(portraitImage, window.location.href).href],
+      ['og:image:alt', 'Portrait of Samay Mishra, known to many as Biraj'],
+      ['twitter:card', 'summary_large_image'],
+      ['twitter:title', SEO_TITLE],
+      ['twitter:description', SEO_DESCRIPTION],
+      ['twitter:image', new URL(portraitImage, window.location.href).href],
     ];
     social.forEach(([property, content]) => {
       let tag = document.querySelector(`meta[property="${property}"]`);
@@ -334,6 +381,66 @@ function App() {
       }
       tag.setAttribute('content', content);
     });
+    let canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
+    canonical.href = `${window.location.origin}${window.location.pathname}`;
+
+    let themeColor = document.querySelector('meta[name="theme-color"]');
+    if (!themeColor) {
+      themeColor = document.createElement('meta');
+      themeColor.setAttribute('name', 'theme-color');
+      document.head.appendChild(themeColor);
+    }
+    themeColor.setAttribute('content', '#f4eee7');
+
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'Person',
+          '@id': `${window.location.origin}/#samay-mishra`,
+          name: 'Samay Mishra',
+          alternateName: 'Biraj',
+          jobTitle: 'Founder',
+          worksFor: { '@id': 'https://zarvora.shop/#organization' },
+        },
+        {
+          '@type': 'Organization',
+          '@id': 'https://zarvora.shop/#organization',
+          name: 'ZARVORA',
+          url: 'https://zarvora.shop',
+          slogan: 'Legacy of Elegance',
+          founder: { '@id': `${window.location.origin}/#samay-mishra` },
+          sameAs: [ZARVORA_INSTAGRAM, ZARVORA_FACEBOOK],
+        },
+        {
+          '@type': 'Brand',
+          '@id': 'https://zarvora.shop/#brand',
+          name: 'ZARVORA',
+          slogan: 'Legacy of Elegance',
+          url: 'https://zarvora.shop',
+        },
+        {
+          '@type': 'WebSite',
+          '@id': `${window.location.origin}/#website`,
+          name: SEO_TITLE,
+          url: `${window.location.origin}${window.location.pathname}`,
+          description: SEO_DESCRIPTION,
+        },
+      ],
+    };
+    let schema = document.getElementById('founder-structured-data');
+    if (!schema) {
+      schema = document.createElement('script');
+      schema.id = 'founder-structured-data';
+      schema.setAttribute('type', 'application/ld+json');
+      document.head.appendChild(schema);
+    }
+    schema.textContent = JSON.stringify(structuredData);
   }, []);
 
   useLayoutEffect(() => {
@@ -391,8 +498,8 @@ function App() {
           <div className="reveal reveal-delay-3 relative mx-auto w-full max-w-[255px] lg:mx-0 lg:mb-2 lg:ml-auto lg:max-w-[300px]">
             <div className="portrait-frame">
               <div className="absolute inset-3 border border-[hsl(var(--secondary)/.35)]" />
-              <span className="portrait-mark" aria-hidden="true">S.</span>
-              <span className="portrait-caption mono-label">Portrait / to come</span>
+              <img src={portraitImage} alt="Portrait of Samay Mishra, known to many as Biraj" className="portrait-image" />
+              <span className="portrait-caption mono-label">Samay Mishra / Mumbai</span>
             </div>
             <div className="mt-4 flex items-start justify-between gap-3">
               <span className="mono-label text-[hsl(var(--muted-foreground))]">Samay Mishra<br />Known as Biraj</span>
@@ -471,7 +578,7 @@ function App() {
             <div>
               <p className="mono-label mb-8 text-[hsl(var(--zarvora-gold))]" data-testid="text-zarvora-chapter-label">02 / A living chapter</p>
               <div className="zarvora-wordmark-wrap">
-                <p className="zarvora-wordmark-text" data-testid="text-zarvora-brand">ZARVORA</p>
+                <img src={zarvoraLogo} alt="ZARVORA — Legacy of Elegance" className="zarvora-logo-art" data-testid="image-zarvora-logo" />
                 <p className="zarvora-tagline" data-testid="text-zarvora-tagline">Legacy of Elegance</p>
               </div>
               <div className="zarvora-drawn-rule mt-8" aria-hidden="true" />
@@ -707,23 +814,95 @@ function App() {
         </div>
       </section>
 
-      <footer id="contact" className="mx-auto max-w-[1500px] px-5 pb-8 pt-24 sm:px-8 lg:px-12 lg:pb-10 lg:pt-36" aria-labelledby="contact-heading">
-        <div className="reveal grid gap-14 lg:grid-cols-[1fr_.8fr] lg:items-end">
+      <footer id="contact" className="contact-footer mx-auto max-w-[1500px] px-5 pb-8 pt-24 sm:px-8 lg:px-12 lg:pb-10 lg:pt-36" aria-labelledby="contact-heading">
+        <div className="contact-intro reveal grid gap-14 lg:grid-cols-[1fr_.8fr] lg:items-end">
           <div>
-            <p className="mono-label mb-8 text-[hsl(var(--primary))]">05 / Contact</p>
-            <h2 id="contact-heading" className="max-w-[950px] text-[clamp(3.5rem,9vw,10rem)] font-medium leading-[.78] tracking-[-.09em]">Let’s make<br /><span className="display-serif font-normal italic text-[hsl(var(--primary))]">something matter.</span></h2>
+            <p className="mono-label mb-8 text-[hsl(var(--primary))]">07 / Contact</p>
+            <h2 id="contact-heading" className="max-w-[950px] text-[clamp(3.5rem,9vw,10rem)] font-medium leading-[.78] tracking-[-.09em]">LET’S MAKE<br /><span className="display-serif font-normal italic text-[hsl(var(--primary))]">SOMETHING REAL.</span></h2>
           </div>
-          <div className="lg:pb-2">
-            <p className="max-w-[350px] text-base leading-7 text-[hsl(var(--muted-foreground))]">For a thoughtful conversation about an idea, a brand, or what might come next.</p>
-            <a href="mailto:hello@samaymishra.com" data-testid="link-contact-email" className="line-link mt-8 mono-label text-[hsl(var(--primary))]"><Mail size={15} strokeWidth={1.4} /> Start a conversation</a>
+          <p className="max-w-[390px] text-base leading-7 text-[hsl(var(--muted-foreground))]">Thoughtful conversations around ZARVORA, building brands, commerce, technology and creative direction are always welcome.</p>
+        </div>
+
+        <div className="contact-workspace reveal reveal-delay-1">
+          <div className="contact-details">
+            <div className="contact-detail">
+              <span className="mono-label text-[hsl(var(--primary))]">Business</span>
+              <a href="mailto:hello@zarvora.shop" className="contact-email">hello@zarvora.shop <ArrowUpRight size={16} strokeWidth={1.3} aria-hidden="true" /></a>
+            </div>
+            <div className="contact-detail">
+              <span className="mono-label text-[hsl(var(--primary))]">Personal</span>
+              <a href="mailto:samaymishra65@gmail.com" className="contact-email">samaymishra65@gmail.com <ArrowUpRight size={16} strokeWidth={1.3} aria-hidden="true" /></a>
+            </div>
+          </div>
+
+          <div className="contact-form-shell">
+            <div className="contact-form-heading">
+              <span className="mono-label text-[hsl(var(--primary))]">Start a conversation / 01</span>
+              <p className="mt-5 max-w-[290px] text-sm leading-6 text-[hsl(var(--muted-foreground))]">Tell me enough to understand what you’re building, and where a point of view might help.</p>
+            </div>
+            <form className="contact-form" onSubmit={handleContactSubmit} noValidate>
+              <label className="contact-field">
+                <span className="mono-label">Your name</span>
+                <input name="name" type="text" autoComplete="name" placeholder="Your name" required minLength={2} />
+              </label>
+              <label className="contact-field">
+                <span className="mono-label">Email</span>
+                <input name="email" type="email" autoComplete="email" placeholder="you@example.com" required />
+              </label>
+              <label className="contact-field contact-field-context">
+                <span className="mono-label">A little context</span>
+                <textarea name="context" placeholder="What are you thinking about?" required minLength={12} rows={4} />
+              </label>
+              <button type="submit" className="contact-submit mono-label">START THE CONVERSATION <ArrowUpRight size={15} strokeWidth={1.3} /></button>
+              <div className={`contact-form-status ${formStatus}`} role="status" aria-live="polite">
+                {formStatus === 'success' && <><strong>MESSAGE RECEIVED</strong><span>Thanks for reaching out.</span></>}
+                {formStatus === 'unconfigured' && <><strong>FORM READY FOR CONNECTION</strong><span>This form is not connected to a message service yet. Please use either email above for now.</span></>}
+                {formStatus === 'error' && <><strong>MESSAGE NOT SENT</strong><span>{formError} Please use either email above.</span></>}
+              </div>
+            </form>
           </div>
         </div>
-        <div className="section-rule mt-24" />
-        <div className="flex flex-col justify-between gap-5 pt-6 text-[hsl(var(--muted-foreground))] sm:flex-row">
-          <div className="flex items-center gap-4">
-            <span className="grid h-8 w-8 place-items-center border border-[hsl(var(--foreground)/.35)] font-serif italic text-lg text-[hsl(var(--foreground))]">S.</span>
-            <span className="mono-label">© {new Date().getFullYear()} Samay Mishra</span>
+
+        <div className="footer-main">
+          <div className="footer-identity">
+            <span className="footer-monogram">S.</span>
+            <div>
+              <p className="footer-name">SAMAY MISHRA</p>
+              <p className="mono-label text-[hsl(var(--muted-foreground))]">Known to many as Biraj.</p>
+              <p className="mono-label mt-5 text-[hsl(var(--primary))]">Independent founder / Mumbai, India</p>
+              <p className="display-serif footer-ethos">“Building with taste.<br />Built for the long view.”</p>
+            </div>
           </div>
+          <div className="footer-zarvora">
+            <img src={zarvoraLogo} alt="ZARVORA — Legacy of Elegance" className="footer-zarvora-logo" />
+            <span className="mono-label">Legacy of Elegance</span>
+          </div>
+          <div className="footer-nav">
+            <span className="mono-label text-[hsl(var(--primary))]">Navigate</span>
+            {navItems.map((item) => <button key={item.target} type="button" onClick={() => scrollTo(item.target)}>{item.label}</button>)}
+          </div>
+          <div className="footer-business">
+            <span className="mono-label text-[hsl(var(--primary))]">Business</span>
+            <a href="mailto:hello@zarvora.shop">hello@zarvora.shop</a>
+            <span className="mono-label mt-5 text-[hsl(var(--primary))]">ZARVORA / Social</span>
+            <div className="footer-socials">
+              <a href={ZARVORA_INSTAGRAM} target="_blank" rel="noopener noreferrer" aria-label="ZARVORA on Instagram"><FaInstagram size={16} aria-hidden="true" /><span>Instagram</span></a>
+              <a href={ZARVORA_FACEBOOK} target="_blank" rel="noopener noreferrer" aria-label="ZARVORA on Facebook"><FaFacebookF size={14} aria-hidden="true" /><span>Facebook</span></a>
+            </div>
+          </div>
+        </div>
+
+        <div className="footer-final">
+          <p className="display-serif footer-final-quote">“I didn’t follow a predefined path.<br /><span>I built my own.”</span></p>
+          <div className="footer-final-mark">
+            <p className="mono-label">SAMAY MISHRA<br />KNOWN TO MANY AS BIRAJ</p>
+            <p className="mono-label mt-6 text-[hsl(var(--primary))]">ZARVORA<br /><span className="text-[hsl(var(--muted-foreground))]">LEGACY OF ELEGANCE</span></p>
+          </div>
+        </div>
+
+        <div className="section-rule mt-16" />
+        <div className="flex flex-col justify-between gap-5 pt-6 text-[hsl(var(--muted-foreground))] sm:flex-row">
+          <span className="mono-label">© {new Date().getFullYear()} Samay Mishra</span>
           <div className="flex items-center gap-2 mono-label"><MapPin size={13} strokeWidth={1.3} /> Mumbai, India</div>
           <button type="button" onClick={() => scrollTo('top')} data-testid="button-back-to-top" className="line-link self-start border-0 bg-transparent p-0 mono-label text-[hsl(var(--foreground))] sm:self-auto">Back to top <ArrowUpRight size={14} strokeWidth={1.4} /></button>
         </div>
