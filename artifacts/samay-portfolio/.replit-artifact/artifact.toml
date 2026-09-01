@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Samay Mishra — Independent Founder"
+description = "A premium editorial founder portfolio for Samay Mishra, known to many as Biraj, and the story behind ZARVORA."
+version = "1.0.0"
+id = "artifacts/samay-portfolio"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21473
+
+[services.development]
+run = "pnpm --filter @workspace/samay-portfolio run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/samay-portfolio", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/samay-portfolio/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21473"
+BASE_PATH = "/"
