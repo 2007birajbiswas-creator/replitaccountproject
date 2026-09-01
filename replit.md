@@ -1,6 +1,6 @@
-# [Project name]
+# Samay Mishra — Independent Founder
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+A premium editorial portfolio for Samay Mishra, known to many as Biraj, and the story behind ZARVORA.
 
 ## Run & Operate
 
@@ -22,23 +22,30 @@ _Replace the heading above with the project's name, and this line with one sente
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/samay-portfolio/src/App.tsx` — single-page portfolio shell, navigation, dynamic founder details, and SEO metadata.
+- `artifacts/samay-portfolio/src/index.css` — shared editorial visual language, responsive layout, motion, and reduced-motion rules.
+- `artifacts/samay-portfolio` — deployable Vite web artifact served at `/`.
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- The portfolio is presentation-first and intentionally has no backend dependency.
+- Founder age is calculated at runtime from 21 June 2005 rather than stored as copy.
+- The portrait treatment is identity-safe: it uses a typographic fallback until the real founder portrait is supplied.
+- Ornamental depth is CSS-based to keep the editorial experience light and resilient across devices.
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+The site introduces Samay as an independent founder through a long-form editorial narrative, with a featured ZARVORA link, practice principles, journey notes, and contact direction.
 
 ## User preferences
 
-_Populate as you build — explicit user instructions worth remembering across sessions._
+- The user wants a sophisticated founder portfolio, not a developer resume, SaaS landing page, or generic startup template.
+- The user prefers restrained luxury, editorial typography, honest claims, subtle motion, and responsive accessibility.
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- Do not invent founder credentials, clients, awards, testimonials, or achievements.
+- Do not replace the portrait fallback with generated or stock imagery; use the user's supplied portrait when it becomes available.
 
 ## Pointers
 
