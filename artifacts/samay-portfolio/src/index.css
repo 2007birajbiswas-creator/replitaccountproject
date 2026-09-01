@@ -745,6 +745,357 @@
 
 .journey-closing-signoff span { color: hsl(var(--muted-foreground)); }
 
+.travel-section {
+  position: relative;
+  background:
+    radial-gradient(circle at 5% 75%, hsl(var(--secondary) / .12), transparent 22rem),
+    hsl(var(--background));
+}
+
+.travel-map-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 7rem 0 2.5rem;
+}
+
+.travel-map-disclaimer {
+  color: hsl(var(--muted-foreground));
+  line-height: 1.8;
+  text-align: right;
+}
+
+.travel-map-disclaimer span,
+.travel-map-attribution-note {
+  color: hsl(var(--primary) / .7);
+}
+
+.travel-map-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(17rem, .55fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.travel-map-column {
+  min-width: 0;
+}
+
+.travel-map-deferred,
+.travel-map-frame,
+.travel-map-loading {
+  min-height: 600px;
+}
+
+.travel-map-frame {
+  overflow: hidden;
+  position: relative;
+  border: 1px solid hsl(var(--foreground) / .2);
+  background: hsl(35 19% 87%);
+}
+
+.travel-map-loading {
+  display: grid;
+  place-items: center;
+  color: hsl(var(--primary));
+  background:
+    linear-gradient(135deg, transparent 49.8%, hsl(var(--primary) / .08) 50%, transparent 50.2%),
+    linear-gradient(45deg, transparent 49.8%, hsl(var(--primary) / .08) 50%, transparent 50.2%),
+    hsl(var(--secondary) / .14);
+  font-family: var(--app-font-mono);
+  font-size: .65rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.travel-map {
+  z-index: 0;
+  width: 100%;
+  height: 600px;
+  background: hsl(35 19% 87%);
+}
+
+.travel-map .leaflet-tile-pane {
+  filter: sepia(.22) saturate(.55) contrast(.9) brightness(1.06);
+}
+
+.travel-map .leaflet-control-zoom {
+  overflow: hidden;
+  border: 1px solid hsl(var(--foreground) / .22) !important;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.travel-map .leaflet-control-zoom a {
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  border-bottom: 1px solid hsl(var(--foreground) / .15);
+  color: hsl(var(--foreground));
+  background: hsl(var(--background) / .9);
+  font-family: var(--app-font-sans);
+  font-size: 1.1rem;
+  line-height: 2rem;
+}
+
+.travel-map .leaflet-control-zoom a:last-child { border-bottom: 0; }
+.travel-map .leaflet-control-zoom a:hover,
+.travel-map .leaflet-control-zoom a:focus-visible { color: hsl(var(--primary)); background: hsl(var(--secondary)); }
+
+.travel-map .leaflet-control-attribution {
+  padding: .3rem .5rem;
+  border-top: 1px solid hsl(var(--foreground) / .1);
+  color: hsl(var(--foreground) / .72);
+  background: hsl(var(--background) / .78);
+  font-size: .58rem;
+}
+
+.travel-map .leaflet-control-attribution a { color: hsl(var(--primary)); }
+
+.travel-map .leaflet-tooltip {
+  padding: .25rem .4rem;
+  border: 1px solid hsl(var(--foreground) / .2);
+  border-radius: 0;
+  color: hsl(var(--foreground));
+  background: hsl(var(--background) / .94);
+  box-shadow: 0 5px 20px hsl(var(--foreground) / .08);
+  font-family: var(--app-font-mono);
+  font-size: .56rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.travel-map .leaflet-tooltip::before { border-top-color: hsl(var(--background) / .94); }
+
+.travel-route {
+  stroke-dashoffset: 900;
+  animation: travel-route-draw 3.8s cubic-bezier(.2,.7,.2,1) forwards;
+}
+
+.travel-marker {
+  animation: travel-marker-appear .7s cubic-bezier(.2,.7,.2,1) var(--marker-delay) both;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.travel-marker-selected {
+  animation: travel-marker-appear .7s cubic-bezier(.2,.7,.2,1) var(--marker-delay) both, travel-marker-pulse 2.8s ease-in-out 1.2s infinite;
+}
+
+.travel-map-attribution-note {
+  padding: .8rem 0 0;
+  text-align: right;
+}
+
+.travel-location-panel {
+  position: sticky;
+  top: 6rem;
+  border-top: 1px solid hsl(var(--foreground) / .2);
+}
+
+.travel-selected-card {
+  min-height: 12rem;
+  padding: 1.5rem 0 1.8rem;
+  border-bottom: 1px solid hsl(var(--foreground) / .16);
+}
+
+.travel-selected-name {
+  margin: 2rem 0 .7rem;
+  color: hsl(var(--primary));
+  font-family: var(--app-font-serif);
+  font-size: clamp(2.4rem, 4.5vw, 4.8rem);
+  letter-spacing: -.06em;
+  line-height: .85;
+}
+
+.travel-selected-role { color: hsl(var(--muted-foreground)); }
+
+.travel-legend {
+  display: grid;
+  gap: .7rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid hsl(var(--foreground) / .16);
+  color: hsl(var(--muted-foreground));
+  font-family: var(--app-font-mono);
+  font-size: .58rem;
+  letter-spacing: .08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.travel-legend span { display: flex; align-items: center; gap: .55rem; }
+
+.travel-legend-dot {
+  display: inline-block;
+  width: .48rem;
+  height: .48rem;
+  border-radius: 50%;
+  background: hsl(var(--muted-foreground));
+}
+
+.travel-legend-dot.hometown { background: #a6322e; }
+.travel-legend-dot.current { background: #487352; }
+.travel-legend-dot.travel { background: #877e75; }
+
+.travel-location-index {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-height: 24rem;
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--primary) / .35) transparent;
+}
+
+.travel-location-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .35rem;
+  min-width: 0;
+  padding: .75rem .2rem .75rem 0;
+  border: 0;
+  border-bottom: 1px solid hsl(var(--foreground) / .12);
+  color: hsl(var(--muted-foreground));
+  background: transparent;
+  font-family: var(--app-font-mono);
+  font-size: .56rem;
+  letter-spacing: .04em;
+  line-height: 1.3;
+  text-align: left;
+  text-transform: uppercase;
+  transition: color .25s ease, padding-left .25s ease;
+}
+
+.travel-location-button span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.travel-location-button:hover,
+.travel-location-button:focus-visible,
+.travel-location-button.is-selected {
+  padding-left: .3rem;
+  color: hsl(var(--primary));
+}
+
+.vision-section {
+  --vision-black: 8 8% 7%;
+  --vision-maroon: 346 34% 13%;
+  --vision-ivory: 40 33% 94%;
+  --vision-muted: 40 14% 68%;
+  --vision-gold: 36 47% 66%;
+  color: hsl(var(--vision-ivory));
+  background:
+    radial-gradient(circle at 75% 34%, hsl(var(--vision-maroon) / .8), transparent 28rem),
+    linear-gradient(120deg, hsl(var(--vision-black)) 0%, hsl(var(--vision-black)) 55%, hsl(var(--vision-maroon)) 150%);
+}
+
+.vision-inner { min-height: 75vh; }
+
+.vision-orb {
+  position: absolute;
+  display: block;
+  border: 1px solid hsl(var(--vision-gold) / .2);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.vision-orb-one {
+  top: 18%;
+  right: -8rem;
+  width: min(42vw, 42rem);
+  height: min(42vw, 42rem);
+  animation: vision-drift 18s ease-in-out infinite alternate;
+}
+
+.vision-orb-two {
+  top: 33%;
+  right: 8%;
+  width: min(23vw, 23rem);
+  height: min(23vw, 23rem);
+  border-color: hsl(var(--vision-ivory) / .09);
+  animation: vision-drift 13s ease-in-out -4s infinite alternate-reverse;
+}
+
+.vision-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .11;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+  mix-blend-mode: screen;
+}
+
+.vision-opening { padding: 2rem 0 8rem; }
+
+.vision-body {
+  display: grid;
+  grid-template-columns: .72fr 1.28fr;
+  gap: 5rem;
+  padding: 2rem 0 8rem;
+  border-top: 1px solid hsl(var(--vision-ivory) / .17);
+}
+
+.vision-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.vision-steps span {
+  color: hsl(var(--vision-ivory));
+  font-family: var(--app-font-serif);
+  font-size: clamp(2.3rem, 5vw, 5.4rem);
+  letter-spacing: -.07em;
+  line-height: .8;
+  opacity: 0;
+  transform: translateY(1rem);
+  animation: vision-word-reveal .8s cubic-bezier(.2,.7,.2,1) var(--step-delay) forwards;
+}
+
+.vision-closing {
+  display: grid;
+  grid-template-columns: 1.28fr .72fr;
+  gap: 3rem;
+  align-items: end;
+  padding-top: 3rem;
+  border-top: 1px solid hsl(var(--vision-ivory) / .17);
+}
+
+.vision-closing-statement {
+  max-width: 850px;
+  margin: 0;
+  color: hsl(var(--vision-gold));
+  font-size: clamp(3rem, 6.7vw, 7.2rem);
+  letter-spacing: -.065em;
+  line-height: .84;
+}
+
+@keyframes travel-route-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes travel-marker-appear {
+  from { opacity: 0; transform: scale(.35); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes travel-marker-pulse {
+  0%, 100% { filter: drop-shadow(0 0 0 hsl(var(--primary) / 0)); }
+  50% { filter: drop-shadow(0 0 5px hsl(var(--primary) / .6)); }
+}
+
+@keyframes vision-drift {
+  from { transform: translate3d(-1rem, .5rem, 0) rotate(-2deg); }
+  to { transform: translate3d(1rem, -1rem, 0) rotate(2deg); }
+}
+
+@keyframes vision-word-reveal {
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .focus-ring:focus-visible, a:focus-visible, button:focus-visible {
   outline: 2px solid hsl(var(--accent));
   outline-offset: 5px;
@@ -801,6 +1152,33 @@
   .journey-milestone-content h3 { font-size: clamp(2.7rem, 12vw, 4.4rem); }
   .journey-revenue span { display: block; margin: .65rem 0 0; }
   .journey-closing { padding-top: 6rem; }
+  .travel-map-heading {
+    display: grid;
+    gap: 2rem;
+    padding-top: 5rem;
+  }
+  .travel-map-disclaimer { text-align: left; }
+  .travel-map-layout { grid-template-columns: 1fr; }
+  .travel-map-deferred,
+  .travel-map-frame,
+  .travel-map-loading,
+  .travel-map { min-height: 440px; height: 440px; }
+  .travel-location-panel { position: static; }
+  .travel-selected-card { min-height: 10rem; }
+  .travel-location-index { max-height: none; }
+  .vision-opening { padding-bottom: 6rem; }
+  .vision-body {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    padding-bottom: 6rem;
+  }
+  .vision-steps { grid-template-columns: 1fr 1fr; gap: 2rem 1rem; }
+  .vision-closing {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  .vision-orb-one { top: 42%; right: -13rem; width: 35rem; height: 35rem; }
+  .vision-orb-two { top: 46%; right: -2rem; width: 18rem; height: 18rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -811,4 +1189,10 @@
     transition-duration: .01ms !important;
   }
   .reveal { opacity: 1; transform: none; }
+  .travel-route,
+  .travel-marker,
+  .travel-marker-selected,
+  .vision-orb,
+  .vision-steps span { animation: none !important; opacity: 1; transform: none; }
+  .journey-timeline-track { transform: scaleY(1); }
 }

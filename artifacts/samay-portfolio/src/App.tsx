@@ -1,5 +1,9 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import type { CSSProperties } from 'react';
 import { ArrowDown, ArrowUpRight, Mail, MapPin, Menu, X } from 'lucide-react';
+import { journeyPlaces, type JourneyPlace } from '@/data/journey-places';
+
+const DeferredJourneyMap = lazy(() => import('@/components/journey-map'));
 
 const DOB = new Date(2005, 5, 21);
 
@@ -50,6 +54,48 @@ function useJourneyProgress() {
     observer.observe(section);
     return () => observer.disconnect();
   }, []);
+}
+
+function LazyJourneyMap({
+  selected,
+  onSelect,
+}: {
+  selected: JourneyPlace | null;
+  onSelect: (place: JourneyPlace) => void;
+}) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isNearViewport, setIsNearViewport] = useState(false);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container || !('IntersectionObserver' in window)) {
+      setIsNearViewport(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsNearViewport(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '500px 0px' },
+    );
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={containerRef} className="travel-map-deferred">
+      {isNearViewport ? (
+        <Suspense fallback={<div className="travel-map-loading" role="status">Preparing the map…</div>}>
+          <DeferredJourneyMap selected={selected} onSelect={onSelect} />
+        </Suspense>
+      ) : (
+        <div className="travel-map-loading" aria-hidden="true">Map / loading on approach</div>
+      )}
+    </div>
+  );
 }
 
 const navItems = [
@@ -257,6 +303,7 @@ function Ornament() {
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [selectedPlace, setSelectedPlace] = useState<JourneyPlace | null>(journeyPlaces[0]);
   const age = getAge();
   useReveals();
   useJourneyProgress();
@@ -289,13 +336,13 @@ function App() {
     });
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const target = window.location.hash.slice(1);
     if (!target) return;
-    const timer = window.setTimeout(() => {
-      document.getElementById(target)?.scrollIntoView({ behavior: 'smooth' });
-    }, 80);
-    return () => window.clearTimeout(timer);
+    const section = document.getElementById(target);
+    if (!section) return;
+    section.querySelectorAll<HTMLElement>('.reveal').forEach((item) => item.classList.add('is-visible'));
+    section.scrollIntoView({ behavior: 'auto' });
   }, []);
 
   useEffect(() => {
@@ -571,6 +618,91 @@ function App() {
           <div className="journey-closing reveal">
             <p className="display-serif journey-closing-quote">“I didn’t follow a predefined path.<br /><span>I built my own.”</span></p>
             <p className="mono-label journey-closing-signoff">SAMAY MISHRA <span>/ FOUNDER</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section id="travel" className="travel-section px-5 py-24 sm:px-8 lg:px-12 lg:py-40" aria-labelledby="travel-heading">
+        <div className="mx-auto max-w-[1500px]">
+          <div className="travel-intro reveal grid gap-8 border-b border-[hsl(var(--foreground)/.17)] pb-16 lg:grid-cols-[.72fr_1.28fr] lg:items-end lg:gap-20">
+            <div>
+              <p className="mono-label text-[hsl(var(--primary))]">05 / Across the map</p>
+              <p className="mt-8 max-w-[275px] text-sm leading-7 text-[hsl(var(--muted-foreground))]">Selected locations from my journey — not live tracking.</p>
+            </div>
+            <div>
+              <h2 id="travel-heading" className="max-w-[1000px] text-[clamp(3.2rem,7.6vw,8rem)] leading-[.79] tracking-[-.085em]">ROOTED IN MUMBAI.<br /><span className="display-serif font-normal italic text-[hsl(var(--primary))]">PRESENT IN KOLKATA.</span></h2>
+              <p className="mt-10 max-w-[650px] text-[clamp(1.15rem,2vw,1.65rem)] leading-[1.25] tracking-[-.025em] text-[hsl(var(--muted-foreground))]">My hometown is Mumbai.<br /><br />Today, I am present in Kolkata — and the road between them has taken me across India and beyond.</p>
+            </div>
+          </div>
+
+          <div className="travel-map-heading reveal">
+            <div>
+              <p className="mono-label text-[hsl(var(--primary))]">The atlas / 01</p>
+              <h3 className="display-serif mt-4 text-[clamp(2.7rem,5.5vw,5.8rem)] italic leading-[.84] tracking-[-.055em]">Places that shaped<br />the journey.</h3>
+            </div>
+            <p className="travel-map-disclaimer mono-label">Selected places that have shaped the journey.<br /><span>Representative coordinates / illustrative route</span></p>
+          </div>
+
+          <div className="travel-map-layout reveal reveal-delay-1">
+            <div className="travel-map-column">
+              <LazyJourneyMap selected={selectedPlace} onSelect={setSelectedPlace} />
+              <p className="travel-map-attribution-note mono-label">OpenStreetMap data / pan, zoom and explore</p>
+            </div>
+            <aside className="travel-location-panel" aria-label="Selected location and travel index">
+              <div className="travel-selected-card" aria-live="polite">
+                <p className="mono-label text-[hsl(var(--primary))]">Selected location</p>
+                <p className="travel-selected-name">{selectedPlace?.name ?? 'Choose a place'}</p>
+                <p className="mono-label travel-selected-role">
+                  {selectedPlace?.role === 'hometown' ? 'Hometown' : selectedPlace?.role === 'current' ? 'Current base' : 'Travel marker'}
+                </p>
+              </div>
+              <div className="travel-legend" aria-label="Map legend">
+                <span><i className="travel-legend-dot hometown" /> Mumbai / hometown</span>
+                <span><i className="travel-legend-dot current" /> Kolkata / present</span>
+                <span><i className="travel-legend-dot travel" /> Selected destinations</span>
+              </div>
+              <div className="travel-location-index">
+                {journeyPlaces.map((place) => (
+                  <button
+                    key={place.name}
+                    type="button"
+                    className={`travel-location-button ${selectedPlace?.name === place.name ? 'is-selected' : ''}`}
+                    onClick={() => setSelectedPlace(place)}
+                    aria-pressed={selectedPlace?.name === place.name}
+                  >
+                    <span>{place.name}</span>
+                    <ArrowUpRight size={13} strokeWidth={1.2} aria-hidden="true" />
+                  </button>
+                ))}
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section id="vision" className="vision-section relative overflow-hidden px-5 py-24 sm:px-8 lg:px-12 lg:py-40" aria-labelledby="vision-heading">
+        <span className="vision-orb vision-orb-one" aria-hidden="true" />
+        <span className="vision-orb vision-orb-two" aria-hidden="true" />
+        <span className="vision-grain" aria-hidden="true" />
+        <div className="vision-inner relative z-10 mx-auto max-w-[1500px]">
+          <div className="vision-opening reveal grid gap-14 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">
+            <div>
+              <p className="mono-label text-[hsl(var(--vision-gold))]">06 / Future vision</p>
+              <p className="mt-8 max-w-[245px] text-sm leading-7 text-[hsl(var(--vision-muted))]">A long-term view on Indian design, global commerce and the quiet work between the two.</p>
+            </div>
+            <h2 id="vision-heading" className="max-w-[1060px] text-[clamp(3.1rem,7.4vw,8rem)] leading-[.79] tracking-[-.085em] text-[hsl(var(--vision-ivory))]">THE FUTURE BELONGS TO PEOPLE WHO CAN SEE CLEARLY —<br /><span className="display-serif font-normal italic text-[hsl(var(--vision-gold))]">AND THEN STAY FOR THE HARD PART.</span></h2>
+          </div>
+          <div className="vision-body reveal reveal-delay-1">
+            <p className="mono-label text-[hsl(var(--vision-gold)/.72)]">SAMAY / 2026 — ONWARD</p>
+            <div className="vision-steps" aria-label="Working principles">
+              {['LEARN.', 'BUILD.', 'REFINE.', 'REPEAT.'].map((step, index) => (
+                <span key={step} style={{ '--step-delay': `${index * 120}ms` } as CSSProperties}>{step}</span>
+              ))}
+            </div>
+          </div>
+          <div className="vision-closing reveal reveal-delay-2">
+            <p className="display-serif vision-closing-statement">“I want to build things that are worth remembering.”</p>
+            <p className="mono-label text-[hsl(var(--vision-muted))]">INDEPENDENT FOUNDER<br />MUMBAI / INDIA</p>
           </div>
         </div>
       </section>
