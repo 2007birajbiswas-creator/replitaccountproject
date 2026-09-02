@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import type { CSSProperties, FormEvent } from 'react';
-import { ArrowDown, ArrowUpRight, MapPin, Menu, X } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, BadgeCheck, MapPin, Menu, X } from 'lucide-react';
 import { FaFacebookF, FaInstagram } from 'react-icons/fa6';
 import { journeyPlaces, type JourneyPlace } from '@/data/journey-places';
 import portraitImage from '@assets/IMG-20260901-WA0010_1788299838276.jpg';
@@ -498,11 +498,14 @@ function App() {
           <div className="reveal reveal-delay-3 relative mx-auto w-full max-w-[255px] lg:mx-0 lg:mb-2 lg:ml-auto lg:max-w-[300px]">
             <div className="portrait-frame">
               <div className="absolute inset-3 border border-[hsl(var(--secondary)/.35)]" />
+              <span className="portrait-frame-orbit portrait-frame-orbit-one" aria-hidden="true" />
+              <span className="portrait-frame-orbit portrait-frame-orbit-two" aria-hidden="true" />
+              <span className="portrait-frame-index mono-label" aria-hidden="true">PROFILE / 01</span>
               <img src={portraitImage} alt="Portrait of Samay Mishra, known to many as Biraj" className="portrait-image" />
               <span className="portrait-caption mono-label">Samay Mishra / Mumbai</span>
             </div>
             <div className="mt-4 flex items-start justify-between gap-3">
-              <span className="mono-label text-[hsl(var(--muted-foreground))]">Samay Mishra<br />Known as Biraj</span>
+              <span className="mono-label text-[hsl(var(--muted-foreground))]">Samay Mishra <span className="verified-badge" title="Verified profile mark"><BadgeCheck size={13} strokeWidth={2} aria-hidden="true" /><span className="sr-only">Verified profile mark</span></span><br />Known as Biraj</span>
               <span className="display-serif text-xl italic text-[hsl(var(--primary))]">01</span>
             </div>
           </div>
@@ -831,7 +834,7 @@ function App() {
             </div>
             <div className="contact-detail">
               <span className="mono-label text-[hsl(var(--primary))]">Personal</span>
-              <a href="mailto:samaymishra65@gmail.com" className="contact-email">samaymishra65@gmail.com <ArrowUpRight size={16} strokeWidth={1.3} aria-hidden="true" /></a>
+              <a href="mailto:hi@samaymishra.online" className="contact-email">hi@samaymishra.online <ArrowUpRight size={16} strokeWidth={1.3} aria-hidden="true" /></a>
             </div>
           </div>
 
