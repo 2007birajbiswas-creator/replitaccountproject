@@ -516,14 +516,23 @@ function App() {
       <audio ref={musicRef} className="background-music" src={backgroundMusic} autoPlay loop preload="auto" aria-hidden="true" />
       {!hasEntered && (
         <div className="site-entry-gate" role="dialog" aria-modal="true" aria-labelledby="entry-gate-title">
+          <div className="site-entry-gate-top">
+            <span className="mono-label">PRIVATE JOURNAL / 01</span>
+            <span className="mono-label">MUMBAI, INDIA</span>
+          </div>
           <div className="site-entry-gate-mark">S.</div>
           <div className="site-entry-gate-copy">
-            <p className="mono-label">SAMAY MISHRA / MUMBAI</p>
-            <p id="entry-gate-title" className="display-serif">An experience with sound.</p>
+            <p className="mono-label">THE JOURNAL OF SAMAY MISHRA</p>
+            <p id="entry-gate-title" className="display-serif">Built one chapter<br /><em>at a time.</em></p>
+            <p className="site-entry-description">A record of growth, conviction, and the work behind the becoming.</p>
           </div>
           <button type="button" className="site-entry-button" onClick={enterSite} autoFocus>
-            ENTER <ArrowUpRight size={15} strokeWidth={1.3} aria-hidden="true" />
+            OPEN JOURNAL <ArrowUpRight size={15} strokeWidth={1.3} aria-hidden="true" />
           </button>
+          <div className="site-entry-gate-bottom">
+            <span className="mono-label">PERSONAL ARCHIVE</span>
+            <span className="mono-label">CONTENTS / STORY / WORK / GROWTH</span>
+          </div>
         </div>
       )}
       <Header menuOpen={menuOpen} onToggle={() => setMenuOpen((open) => !open)} />
