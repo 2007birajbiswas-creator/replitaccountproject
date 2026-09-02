@@ -217,10 +217,14 @@
   position: relative;
   display: grid;
   place-items: center;
-  aspect-ratio: 4 / 5;
+  width: 100%;
+  aspect-ratio: 1;
   overflow: hidden;
+  border: 1px solid hsl(var(--primary) / .45);
+  border-radius: 50%;
   color: hsl(var(--primary-foreground));
   background: hsl(var(--primary));
+  box-shadow: 0 0 0 10px hsl(var(--background)), 0 0 0 11px hsl(var(--primary) / .16);
 }
 
 .portrait-frame::before {
