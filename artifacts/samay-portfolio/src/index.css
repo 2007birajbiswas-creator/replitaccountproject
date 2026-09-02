@@ -283,11 +283,7 @@
   z-index: 3;
   top: 1.3rem;
   left: 1.3rem;
-  padding: .35rem .5rem;
-  border: 1px solid hsl(var(--primary-foreground) / .28);
   color: hsl(var(--primary-foreground));
-  background: hsl(var(--foreground) / .58);
-  box-shadow: 0 3px 14px hsl(var(--foreground) / .16);
   text-shadow: 0 1px 2px hsl(var(--foreground) / .6);
 }
 
@@ -334,15 +330,11 @@
   right: 50%;
   bottom: 1.1rem;
   width: calc(100% - 3rem);
-  padding: .55rem .7rem;
-  border: 1px solid hsl(var(--primary-foreground) / .3);
+  padding: 0;
   color: hsl(var(--primary-foreground));
-  background: hsl(var(--foreground) / .68);
-  box-shadow: 0 3px 14px hsl(var(--foreground) / .18);
   text-align: center;
   text-shadow: 0 1px 2px hsl(var(--foreground) / .65);
   transform: translateX(50%);
-  backdrop-filter: blur(3px);
 }
 
 .line-link {
