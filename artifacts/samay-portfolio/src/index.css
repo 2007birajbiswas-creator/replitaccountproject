@@ -136,6 +136,10 @@
   overflow: hidden;
 }
 
+.background-music {
+  display: none;
+}
+
 .portfolio-shell::before {
   position: fixed;
   z-index: 20;

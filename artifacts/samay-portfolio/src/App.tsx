@@ -7,6 +7,7 @@ import portraitImage from '@assets/IMG-20260901-WA0010_1788299838276.jpg';
 import profileCutoutImage from '@assets/file_0000000060908211b1c1e59e5a2a2989_1788329162605.png';
 import zayanaImage from '@assets/IMG-20260902-WA0003_1788299389599.jpg';
 import zarvoraLogo from '@assets/file_000000001bdc82118bc573833a191e6c_1788299389616.png';
+import backgroundMusic from '@assets/AUD-20260902-WA0053_1788346229611.mp3';
 
 const DeferredJourneyMap = lazy(() => import('@/components/journey-map'));
 const CONTACT_FORM_ENDPOINT = import.meta.env.VITE_CONTACT_FORM_ENDPOINT as string | undefined;
@@ -321,9 +322,36 @@ function App() {
   const [selectedPlace, setSelectedPlace] = useState<JourneyPlace | null>(journeyPlaces[0]);
   const [formStatus, setFormStatus] = useState<'idle' | 'success' | 'unconfigured' | 'error'>('idle');
   const [formError, setFormError] = useState('');
+  const musicRef = useRef<HTMLAudioElement>(null);
   const age = getAge();
   useReveals();
   useJourneyProgress();
+
+  useEffect(() => {
+    const audio = musicRef.current;
+    if (!audio) return;
+
+    audio.loop = true;
+    audio.volume = 0.32;
+
+    const startMusic = () => {
+      void audio.play().catch(() => {
+        // Browsers may require a user gesture before allowing audible autoplay.
+      });
+    };
+    const interactionEvents = ['pointerdown', 'keydown', 'touchstart'] as const;
+
+    startMusic();
+    interactionEvents.forEach((eventName) => {
+      window.addEventListener(eventName, startMusic, { once: true, passive: true });
+    });
+
+    return () => {
+      interactionEvents.forEach((eventName) => window.removeEventListener(eventName, startMusic));
+      audio.pause();
+      audio.currentTime = 0;
+    };
+  }, []);
 
   const handleContactSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -467,6 +495,7 @@ function App() {
 
   return (
     <main id="top" className="portfolio-shell min-h-[100dvh] bg-[hsl(var(--background))]">
+      <audio ref={musicRef} className="background-music" src={backgroundMusic} autoPlay loop preload="auto" aria-hidden="true" />
       <Header menuOpen={menuOpen} onToggle={() => setMenuOpen((open) => !open)} />
 
       <section className="relative mx-auto flex min-h-[calc(100dvh-82px)] w-full max-w-[1500px] items-center px-5 pb-20 pt-10 sm:px-8 lg:min-h-[calc(100dvh-104px)] lg:px-12 lg:pb-28 lg:pt-16" aria-labelledby="hero-heading">
