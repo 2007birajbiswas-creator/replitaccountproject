@@ -4,6 +4,7 @@ import { ArrowDown, ArrowUpRight, BadgeCheck, MapPin, Menu, X } from 'lucide-rea
 import { FaFacebookF, FaInstagram } from 'react-icons/fa6';
 import { journeyPlaces, type JourneyPlace } from '@/data/journey-places';
 import portraitImage from '@assets/IMG-20260901-WA0010_1788299838276.jpg';
+import profileCutoutImage from '@assets/file_0000000060908211b1c1e59e5a2a2989_1788329162605.png';
 import zayanaImage from '@assets/IMG-20260902-WA0003_1788299389599.jpg';
 import zarvoraLogo from '@assets/file_000000001bdc82118bc573833a191e6c_1788299389616.png';
 
@@ -501,7 +502,7 @@ function App() {
               <span className="portrait-frame-orbit portrait-frame-orbit-one" aria-hidden="true" />
               <span className="portrait-frame-orbit portrait-frame-orbit-two" aria-hidden="true" />
               <span className="portrait-frame-index mono-label" aria-hidden="true">PROFILE / 01</span>
-              <img src={portraitImage} alt="Portrait of Samay Mishra, known to many as Biraj" className="portrait-image" />
+              <img src={profileCutoutImage} alt="Portrait of Samay Mishra, known to many as Biraj" className="portrait-image" />
               <span className="portrait-caption mono-label">Samay Mishra / Mumbai</span>
             </div>
             <div className="mt-4 flex items-start justify-between gap-3">
