@@ -536,28 +536,18 @@ function App() {
           </div>
 
           <div className="reveal reveal-delay-3 relative mx-auto w-full max-w-[255px] lg:mx-0 lg:mb-2 lg:ml-auto lg:max-w-[300px]">
-            <div className="portrait-frame">
+            <button type="button" className="portrait-frame portrait-frame-button" onClick={playBackgroundMusic} aria-label="Play portfolio music">
               <div className="portrait-frame-inner absolute inset-3 border border-[hsl(var(--secondary)/.35)]" />
               <span className="portrait-frame-orbit portrait-frame-orbit-one" aria-hidden="true" />
               <span className="portrait-frame-orbit portrait-frame-orbit-two" aria-hidden="true" />
               <span className="portrait-frame-index mono-label" aria-hidden="true">PROFILE / 01</span>
               <img src={profileCutoutImage} alt="Portrait of Samay Mishra, known to many as Biraj" className="portrait-image" />
               <span className="portrait-caption mono-label">Samay Mishra / Mumbai</span>
-            </div>
+            </button>
             <div className="mt-4 flex items-start justify-between gap-3">
               <span className="mono-label text-[hsl(var(--muted-foreground))]">Samay Mishra <span className="verified-badge" title="Verified profile mark"><BadgeCheck size={13} strokeWidth={2} aria-hidden="true" /><span className="sr-only">Verified profile mark</span></span><br />Known as Biraj</span>
               <span className="display-serif text-xl italic text-[hsl(var(--primary))]">01</span>
             </div>
-            <button
-              type="button"
-              onClick={() => {
-                playBackgroundMusic();
-                scrollTo('journey');
-              }}
-              className="profile-more-link line-link mono-label"
-            >
-              KNOW MORE ABOUT ME <ArrowDown size={13} strokeWidth={1.4} aria-hidden="true" />
-            </button>
           </div>
         </div>
         <button type="button" onClick={() => scrollTo('manifesto')} aria-label="Scroll to continue" data-testid="button-scroll-down" className="absolute bottom-7 left-5 flex items-center gap-3 border-0 bg-transparent p-0 text-[hsl(var(--muted-foreground))] sm:left-8 lg:left-12">
