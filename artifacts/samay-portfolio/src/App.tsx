@@ -335,18 +335,25 @@ function App() {
     audio.volume = 0.32;
 
     const startMusic = () => {
-      void audio.play().catch(() => {
-        // Browsers may require a user gesture before allowing audible autoplay.
-      });
+      if (audio.paused) {
+        void audio.play().catch(() => {
+          // Browsers may require a user gesture before allowing audible autoplay.
+        });
+      }
     };
     const interactionEvents = ['pointerdown', 'keydown', 'touchstart'] as const;
 
+    audio.load();
     startMusic();
+    audio.addEventListener('canplay', startMusic);
+    document.addEventListener('visibilitychange', startMusic);
     interactionEvents.forEach((eventName) => {
       window.addEventListener(eventName, startMusic, { once: true, passive: true });
     });
 
     return () => {
+      audio.removeEventListener('canplay', startMusic);
+      document.removeEventListener('visibilitychange', startMusic);
       interactionEvents.forEach((eventName) => window.removeEventListener(eventName, startMusic));
       audio.pause();
       audio.currentTime = 0;
