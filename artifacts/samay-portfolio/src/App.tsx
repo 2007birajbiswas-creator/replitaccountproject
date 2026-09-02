@@ -319,7 +319,6 @@ function Ornament() {
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [hasEntered, setHasEntered] = useState(false);
   const [selectedPlace, setSelectedPlace] = useState<JourneyPlace | null>(journeyPlaces[0]);
   const [formStatus, setFormStatus] = useState<'idle' | 'success' | 'unconfigured' | 'error'>('idle');
   const [formError, setFormError] = useState('');
@@ -360,16 +359,6 @@ function App() {
       audio.currentTime = 0;
     };
   }, []);
-
-  const enterSite = () => {
-    setHasEntered(true);
-    const audio = musicRef.current;
-    if (audio) {
-      void audio.play().catch(() => {
-        // The browser can still deny playback if the gesture is interrupted.
-      });
-    }
-  };
 
   const handleContactSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -514,27 +503,6 @@ function App() {
   return (
     <main id="top" className="portfolio-shell min-h-[100dvh] bg-[hsl(var(--background))]">
       <audio ref={musicRef} className="background-music" src={backgroundMusic} autoPlay loop preload="auto" aria-hidden="true" />
-      {!hasEntered && (
-        <div className="site-entry-gate" role="dialog" aria-modal="true" aria-labelledby="entry-gate-title">
-          <div className="site-entry-gate-top">
-            <span className="mono-label">PRIVATE JOURNAL / 01</span>
-            <span className="mono-label">MUMBAI, INDIA</span>
-          </div>
-          <div className="site-entry-gate-mark">S.</div>
-          <div className="site-entry-gate-copy">
-            <p className="mono-label">THE JOURNAL OF SAMAY MISHRA</p>
-            <p id="entry-gate-title" className="display-serif">Built one chapter<br /><em>at a time.</em></p>
-            <p className="site-entry-description">A record of growth, conviction, and the work behind the becoming.</p>
-          </div>
-          <button type="button" className="site-entry-button" onClick={enterSite} autoFocus>
-            OPEN JOURNAL <ArrowUpRight size={15} strokeWidth={1.3} aria-hidden="true" />
-          </button>
-          <div className="site-entry-gate-bottom">
-            <span className="mono-label">PERSONAL ARCHIVE</span>
-            <span className="mono-label">CONTENTS / STORY / WORK / GROWTH</span>
-          </div>
-        </div>
-      )}
       <Header menuOpen={menuOpen} onToggle={() => setMenuOpen((open) => !open)} />
 
       <section className="relative mx-auto flex min-h-[calc(100dvh-82px)] w-full max-w-[1500px] items-center px-5 pb-20 pt-10 sm:px-8 lg:min-h-[calc(100dvh-104px)] lg:px-12 lg:pb-28 lg:pt-16" aria-labelledby="hero-heading">
