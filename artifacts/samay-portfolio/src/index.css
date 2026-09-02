@@ -145,6 +145,61 @@
   pointer-events: none;
 }
 
+.site-entry-gate {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  color: hsl(var(--foreground));
+  background: hsl(var(--background));
+  text-align: center;
+}
+
+.site-entry-gate-mark {
+  display: grid;
+  width: 3.2rem;
+  height: 3.2rem;
+  place-items: center;
+  border: 1px solid hsl(var(--foreground) / .35);
+  font-family: var(--app-font-serif);
+  font-size: 1.8rem;
+  font-style: italic;
+}
+
+.site-entry-gate-copy {
+  display: grid;
+  gap: .8rem;
+}
+
+.site-entry-gate-copy .display-serif {
+  font-size: clamp(2.25rem, 6vw, 4.5rem);
+  line-height: .92;
+}
+
+.site-entry-button {
+  display: inline-flex;
+  align-items: center;
+  gap: .7rem;
+  padding: .8rem 0;
+  border: 0;
+  border-bottom: 1px solid hsl(var(--primary));
+  color: hsl(var(--primary));
+  background: transparent;
+  font-family: var(--app-font-mono);
+  font-size: .68rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+.site-entry-button:focus-visible {
+  outline: 1px solid hsl(var(--primary));
+  outline-offset: .45rem;
+}
+
 .portfolio-shell::before {
   position: fixed;
   z-index: 20;
