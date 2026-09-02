@@ -349,14 +349,28 @@ function App() {
     audio.load();
     startMusic();
     audio.addEventListener('canplay', startMusic);
-    document.addEventListener('visibilitychange', startMusic);
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'hidden') {
+        audio.pause();
+      } else {
+        startMusic();
+      }
+    };
+    const handlePageHide = () => audio.pause();
+    const handlePageShow = () => startMusic();
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('pagehide', handlePageHide);
+    window.addEventListener('pageshow', handlePageShow);
     interactionEvents.forEach((eventName) => {
       window.addEventListener(eventName, startMusic, { once: true, passive: true });
     });
 
     return () => {
       audio.removeEventListener('canplay', startMusic);
-      document.removeEventListener('visibilitychange', startMusic);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('pagehide', handlePageHide);
+      window.removeEventListener('pageshow', handlePageShow);
       interactionEvents.forEach((eventName) => window.removeEventListener(eventName, startMusic));
       audio.pause();
       audio.currentTime = 0;
