@@ -497,7 +497,7 @@ function App() {
 
           <div className="reveal reveal-delay-3 relative mx-auto w-full max-w-[255px] lg:mx-0 lg:mb-2 lg:ml-auto lg:max-w-[300px]">
             <div className="portrait-frame">
-              <div className="absolute inset-3 border border-[hsl(var(--secondary)/.35)]" />
+              <div className="portrait-frame-inner absolute inset-3 border border-[hsl(var(--secondary)/.35)]" />
               <span className="portrait-frame-orbit portrait-frame-orbit-one" aria-hidden="true" />
               <span className="portrait-frame-orbit portrait-frame-orbit-two" aria-hidden="true" />
               <span className="portrait-frame-index mono-label" aria-hidden="true">PROFILE / 01</span>
@@ -841,20 +841,12 @@ function App() {
           <div className="contact-form-shell">
             <div className="contact-form-heading">
               <span className="mono-label text-[hsl(var(--primary))]">Start a conversation / 01</span>
-              <p className="mt-5 max-w-[290px] text-sm leading-6 text-[hsl(var(--muted-foreground))]">Tell me enough to understand what you’re building, and where a point of view might help.</p>
+              <p className="mt-5 max-w-[290px] text-sm leading-6 text-[hsl(var(--muted-foreground))]">Leave your email and I’ll get back to you personally.</p>
             </div>
             <form className="contact-form" onSubmit={handleContactSubmit} noValidate>
               <label className="contact-field">
-                <span className="mono-label">Your name</span>
-                <input name="name" type="text" autoComplete="name" placeholder="Your name" required minLength={2} />
-              </label>
-              <label className="contact-field">
                 <span className="mono-label">Email</span>
                 <input name="email" type="email" autoComplete="email" placeholder="you@example.com" required />
-              </label>
-              <label className="contact-field contact-field-context">
-                <span className="mono-label">A little context</span>
-                <textarea name="context" placeholder="What are you thinking about?" required minLength={12} rows={4} />
               </label>
               <button type="submit" className="contact-submit mono-label">START THE CONVERSATION <ArrowUpRight size={15} strokeWidth={1.3} /></button>
               <div className={`contact-form-status ${formStatus}`} role="status" aria-live="polite">
