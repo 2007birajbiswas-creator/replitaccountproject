@@ -327,6 +327,15 @@ function App() {
   useReveals();
   useJourneyProgress();
 
+  const playBackgroundMusic = () => {
+    const audio = musicRef.current;
+    if (audio && audio.paused) {
+      void audio.play().catch(() => {
+        // Browsers may still deny playback if the gesture is interrupted.
+      });
+    }
+  };
+
   useEffect(() => {
     const audio = musicRef.current;
     if (!audio) return;
@@ -334,13 +343,7 @@ function App() {
     audio.loop = true;
     audio.volume = 0.32;
 
-    const startMusic = () => {
-      if (audio.paused) {
-        void audio.play().catch(() => {
-          // Browsers may require a user gesture before allowing audible autoplay.
-        });
-      }
-    };
+    const startMusic = playBackgroundMusic;
     const interactionEvents = ['pointerdown', 'keydown', 'touchstart'] as const;
 
     audio.load();
@@ -545,6 +548,16 @@ function App() {
               <span className="mono-label text-[hsl(var(--muted-foreground))]">Samay Mishra <span className="verified-badge" title="Verified profile mark"><BadgeCheck size={13} strokeWidth={2} aria-hidden="true" /><span className="sr-only">Verified profile mark</span></span><br />Known as Biraj</span>
               <span className="display-serif text-xl italic text-[hsl(var(--primary))]">01</span>
             </div>
+            <button
+              type="button"
+              onClick={() => {
+                playBackgroundMusic();
+                scrollTo('journey');
+              }}
+              className="profile-more-link line-link mono-label"
+            >
+              KNOW MORE ABOUT ME <ArrowDown size={13} strokeWidth={1.4} aria-hidden="true" />
+            </button>
           </div>
         </div>
         <button type="button" onClick={() => scrollTo('manifesto')} aria-label="Scroll to continue" data-testid="button-scroll-down" className="absolute bottom-7 left-5 flex items-center gap-3 border-0 bg-transparent p-0 text-[hsl(var(--muted-foreground))] sm:left-8 lg:left-12">

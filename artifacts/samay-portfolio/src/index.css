@@ -350,6 +350,17 @@
   transform: translateX(50%);
 }
 
+.profile-more-link {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  margin-top: 1.25rem;
+  padding: 0;
+  border: 0;
+  color: hsl(var(--primary));
+  background: transparent;
+}
+
 .line-link {
   position: relative;
   display: inline-flex;
