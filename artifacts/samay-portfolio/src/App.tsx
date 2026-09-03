@@ -9,7 +9,7 @@ import zayanaImage from '.assets/IMG-20260902-WA0003_1788299389599.jpg';
 import zarvoraLogo from '.assets/file_000000001bdc82118bc573833a191e6c_1788299389616.png';
 import backgroundMusic from '.assets/AUD-20260902-WA0053_1788346229611.mp3';
 
-const DeferredJourneyMap = lazy(() => import('@/components/Journey-Map'));
+const DeferredJourneyMap = lazy(() => import('@/components/journey-map'));
 const CONTACT_FORM_ENDPOINT = import.meta.env.VITE_CONTACT_FORM_ENDPOINT as string | undefined;
 const SEO_TITLE = 'Samay Mishra — Founder of ZARVORA | Legacy of Elegance';
 const SEO_DESCRIPTION =
