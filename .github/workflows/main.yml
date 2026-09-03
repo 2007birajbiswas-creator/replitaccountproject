@@ -15,7 +15,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      PORT: 5000
+      PORT: 4173
+      BASE_PATH: /
 
     steps:
       - name: Checkout
@@ -24,7 +25,9 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: artifacts/samay-portfolio/pnpm-lock.yaml
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -45,7 +48,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: artifacts/samay-portfolio/dist
+          path: artifacts/samay-portfolio/dist/public
 
       - name: Deploy to GitHub Pages
         id: deployment
