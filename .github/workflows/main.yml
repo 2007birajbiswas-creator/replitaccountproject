@@ -34,7 +34,7 @@ jobs:
 
       - name: Build
         working-directory: artifacts/samay-portfolio
-        run: npm run build
+        run: pnpm run build
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
