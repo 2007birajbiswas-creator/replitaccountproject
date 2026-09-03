@@ -23,9 +23,14 @@ jobs:
         with:
           node-version: 20
 
+      - name: Setup pnpm
+  uses: pnpm/action-setup@v4
+  with:
+    version: 10
+
       - name: Install dependencies
-        working-directory: artifacts/samay-portfolio
-        run: npm install
+  working-directory: artifacts/samay-portfolio
+  run: pnpm install
 
       - name: Build
         working-directory: artifacts/samay-portfolio
@@ -38,7 +43,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: artifacts/samay-portfolio/dist
-
+          
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
