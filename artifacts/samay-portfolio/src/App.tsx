@@ -2,7 +2,7 @@ import { lazy, Suspense, useEffect, useLayoutEffect, useRef, useState } from 're
 import type { CSSProperties, FormEvent } from 'react';
 import { ArrowDown, ArrowUpRight, BadgeCheck, MapPin, Menu, X } from 'lucide-react';
 import { FaFacebookF, FaInstagram } from 'react-icons/fa6';
-import { journeyPlaces, type JourneyPlace } from '@/data/journey-places';
+import { journeyPlaces, type JourneyPlace } from './data/journey-places';
 import portraitImage from '@assets/IMG-20260901-WA0010_1788299838276.jpg';
 import profileCutoutImage from '@assets/file_0000000060908211b1c1e59e5a2a2989_1788329162605.png';
 import zayanaImage from '@assets/IMG-20260902-WA0003_1788299389599.jpg';
