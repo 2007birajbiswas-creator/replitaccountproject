@@ -10,13 +10,13 @@ permissions:
   pages: write
   id-token: write
 
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Checkout
@@ -26,6 +26,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 24
+          cache: pnpm
+          cache-dependency-path: artifacts/samay-portfolio/pnpm-lock.yaml
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -34,7 +36,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: artifacts/samay-portfolio
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Build
         working-directory: artifacts/samay-portfolio
@@ -48,6 +50,15 @@ jobs:
         with:
           path: artifacts/samay-portfolio/dist
 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
