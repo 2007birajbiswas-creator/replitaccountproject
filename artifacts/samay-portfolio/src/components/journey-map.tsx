@@ -10,7 +10,7 @@ import {
   useMap,
 } from 'react-leaflet';
 import type { LatLngExpression, PathOptions } from 'leaflet';
-import { journeyPlaces, type JourneyPlace } from '@/data/journey-places';
+import { journeyPlaces, type JourneyPlace } from '../data/journey-places';
 import 'leaflet/dist/leaflet.css';
 
 const routeCoordinates: LatLngExpression[] = [
