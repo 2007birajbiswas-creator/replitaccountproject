@@ -7,7 +7,7 @@ import portraitImage from '../../../attached_assets/IMG-20260901-WA0010_17882998
 import profileCutoutImage from '../../../attached_assets/file_0000000060908211b1c1e59e5a2a2989_1788329162605.png';
 import zayanaImage from '../../../attached_assets/IMG-20260902-WA0003_1788299389599.jpg';
 import zarvoraLogo from '../../../attached_assets/file_000000001bdc82118bc573833a191e6c_1788299389616.png';
-import backgroundMusic from '../../../assets/AUD-20260902-WA0053_1788346229611.mp3';
+import backgroundMusic from '../../../attached_assets/AUD-20260902-WA0053_1788346229611.mp3';
 
 const DeferredJourneyMap = lazy(() => import('./components/journey-map'));
 const CONTACT_FORM_ENDPOINT = import.meta.env.VITE_CONTACT_FORM_ENDPOINT as string | undefined;
